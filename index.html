@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Aidan's Rankings // Books · TV · Movies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #05060f;
+    --bg-2: #0a0d24;
+    --cyan: #00e5ff;
+    --magenta: #ff00d4;
+    --violet: #a855f7;
+    --text: #e8ecff;
+    --muted: #8b91b8;
+    --card: rgba(20, 24, 56, 0.45);
+    --card-border: rgba(0, 229, 255, 0.18);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(0,229,255,0.18), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 80% 30%, rgba(255,0,212,0.15), transparent 60%),
+      radial-gradient(ellipse 60% 60% at 50% 100%, rgba(168,85,247,0.18), transparent 60%);
+    z-index: -2;
+    animation: bg-drift 22s ease-in-out infinite alternate;
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    z-index: -1;
+    pointer-events: none;
+  }
+  @keyframes bg-drift {
+    0% { transform: translate(0,0) scale(1); }
+    100% { transform: translate(-3%,2%) scale(1.05); }
+  }
+
+  /* NAV */
+  nav.topbar {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    background: rgba(5,6,15,0.6);
+    border-bottom: 1px solid rgba(0,229,255,0.18);
+    padding: 14px 28px;
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .brand {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 18px;
+    letter-spacing: 4px;
+    background: linear-gradient(90deg, var(--cyan), var(--magenta));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 18px rgba(0,229,255,0.4);
+  }
+  .brand span { color: var(--muted); -webkit-text-fill-color: var(--muted); font-weight: 500; letter-spacing: 2px; margin-left: 10px; }
+  .nav-links { display: flex; gap: 4px; flex-wrap: wrap; flex: 1; justify-content: center; }
+  .nav-links a {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 999px;
+    transition: all .25s ease;
+    border: 1px solid transparent;
+  }
+  .nav-links a:hover { color: var(--cyan); border-color: rgba(0,229,255,0.35); background: rgba(0,229,255,0.06); text-shadow: 0 0 12px rgba(0,229,255,0.6); }
+  .search-wrap { position: relative; }
+  .search-wrap input {
+    background: rgba(20,24,56,0.6);
+    border: 1px solid rgba(0,229,255,0.25);
+    color: var(--text);
+    padding: 9px 14px 9px 36px;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    width: 220px;
+    transition: all .2s;
+    outline: none;
+  }
+  .search-wrap input:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(0,229,255,0.15); width: 260px; }
+  .search-wrap::before {
+    content: '⌕'; position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    color: var(--cyan); font-size: 16px; pointer-events: none;
+  }
+  .refresh-btn {
+    background: transparent;
+    border: 1px solid rgba(255,0,212,0.35);
+    color: var(--magenta);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .refresh-btn:hover { background: rgba(255,0,212,0.1); box-shadow: 0 0 16px rgba(255,0,212,0.4); }
+
+  /* HERO */
+  header.hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+  }
+  header.hero h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: clamp(36px, 6vw, 72px);
+    letter-spacing: 6px;
+    line-height: 1.05;
+    background: linear-gradient(120deg, #ffffff 0%, var(--cyan) 40%, var(--magenta) 70%, var(--violet) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 28px rgba(0,229,255,0.3));
+  }
+  header.hero p {
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .hero-line {
+    width: 220px; height: 2px;
+    margin: 28px auto 0;
+    background: linear-gradient(90deg, transparent, var(--cyan), var(--magenta), transparent);
+    box-shadow: 0 0 14px var(--cyan);
+  }
+
+  /* SECTIONS */
+  section.list {
+    padding: 60px 32px 40px;
+    max-width: 1480px;
+    margin: 0 auto;
+  }
+  .section-head {
+    display: flex; align-items: baseline; gap: 18px; margin-bottom: 32px; flex-wrap: wrap;
+  }
+  .section-num {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--cyan);
+    letter-spacing: 3px;
+    border: 1px solid rgba(0,229,255,0.35);
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-shadow: 0 0 8px rgba(0,229,255,0.6);
+  }
+  .section-head h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: clamp(22px, 3vw, 34px);
+    letter-spacing: 4px;
+    color: var(--text);
+  }
+  .section-head .count {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-family: 'Orbitron', sans-serif;
+  }
+  .section-head .underline {
+    flex-basis: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--cyan), transparent);
+    margin-top: 8px;
+  }
+  .watchlist .section-num { color: var(--magenta); border-color: rgba(255,0,212,0.4); text-shadow: 0 0 8px rgba(255,0,212,0.6); }
+  .watchlist .section-head .underline { background: linear-gradient(90deg, var(--magenta), transparent); }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 22px;
+  }
+
+  /* CARD */
+  .card {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .card.in-view { opacity: 1; transform: translateY(0); transition: opacity .6s, transform .6s; }
+  .card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow:
+      0 20px 50px rgba(0,0,0,0.6),
+      0 0 0 1px rgba(0,229,255,0.5),
+      0 0 28px rgba(0,229,255,0.35),
+      0 0 60px rgba(255,0,212,0.18);
+  }
+  .card .cover {
+    width: 100%;
+    aspect-ratio: 2/3;
+    background: linear-gradient(135deg, #131838 0%, #1c1247 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .card.book .cover { aspect-ratio: 2/3; }
+  .card .cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s; }
+  .card:hover .cover img { transform: scale(1.06); }
+  .card .placeholder {
+    text-align: center;
+    padding: 16px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--cyan);
+    text-shadow: 0 0 10px rgba(0,229,255,0.5);
+    background:
+      radial-gradient(circle at 30% 30%, rgba(0,229,255,0.18), transparent 60%),
+      radial-gradient(circle at 70% 80%, rgba(255,0,212,0.18), transparent 60%),
+      #0a0d24;
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .rank-badge {
+    position: absolute; top: 10px; left: 10px; z-index: 2;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    color: #fff;
+    background: rgba(5,6,15,0.75);
+    border: 1px solid var(--cyan);
+    padding: 5px 10px;
+    border-radius: 6px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 8px var(--cyan);
+    box-shadow: 0 0 12px rgba(0,229,255,0.4);
+    backdrop-filter: blur(6px);
+  }
+  .watchlist .rank-badge { border-color: var(--magenta); text-shadow: 0 0 8px var(--magenta); box-shadow: 0 0 12px rgba(255,0,212,0.4); }
+  .card .meta {
+    padding: 14px 14px 16px;
+    border-top: 1px solid rgba(0,229,255,0.1);
+  }
+  .card .title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 500;
+    font-size: 12.5px;
+    letter-spacing: 1px;
+    color: var(--text);
+    line-height: 1.35;
+  }
+
+  /* #1 card – animated border */
+  .card.top {
+    border: none;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--cyan), var(--magenta), var(--violet), var(--cyan));
+    background-size: 300% 300%;
+    animation: top-border 5s ease-in-out infinite;
+  }
+  .card.top > .inner {
+    background: #0a0d24;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .card.top .rank-badge {
+    background: linear-gradient(135deg, var(--cyan), var(--magenta));
+    border: none;
+    color: #05060f;
+    text-shadow: none;
+    box-shadow: 0 0 18px rgba(255,0,212,0.6);
+  }
+  @keyframes top-border {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* MODAL */
+  .modal-wrap {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(5,6,15,0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: none;
+    align-items: center; justify-content: center;
+    padding: 32px;
+    animation: fade-in .25s ease;
+  }
+  .modal-wrap.open { display: flex; }
+  @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+  .modal {
+    background: linear-gradient(135deg, #0a0d24 0%, #131447 100%);
+    border: 1px solid rgba(0,229,255,0.4);
+    border-radius: 18px;
+    padding: 32px;
+    max-width: 640px;
+    width: 100%;
+    box-shadow:
+      0 0 0 1px rgba(255,0,212,0.2),
+      0 30px 80px rgba(0,0,0,0.8),
+      0 0 60px rgba(0,229,255,0.2);
+    text-align: center;
+    position: relative;
+    animation: modal-up .35s cubic-bezier(.2,.8,.2,1);
+  }
+  @keyframes modal-up { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal img { max-height: 60vh; max-width: 100%; border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+  .modal .placeholder { width: 280px; height: 420px; margin: 0 auto; border-radius: 8px; }
+  .modal h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-top: 22px;
+    font-size: 18px;
+    background: linear-gradient(90deg, var(--cyan), var(--magenta));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .modal .modal-meta {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 6px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .modal .modal-link {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 10px 22px;
+    border: 1px solid var(--cyan);
+    border-radius: 999px;
+    color: var(--cyan);
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    transition: all .2s;
+  }
+  .modal .modal-link:hover { background: rgba(0,229,255,0.1); box-shadow: 0 0 16px rgba(0,229,255,0.4); }
+  .modal .close {
+    position: absolute; top: 14px; right: 18px;
+    background: transparent; border: none; color: var(--muted);
+    font-size: 28px; cursor: pointer; line-height: 1;
+    transition: color .2s;
+  }
+  .modal .close:hover { color: var(--magenta); }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 60px 24px 40px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-family: 'Orbitron', sans-serif;
+  }
+  footer .pulse { display: inline-block; width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 12px var(--cyan); margin: 0 8px; animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
+
+  /* SCAN LINE */
+  .scanline {
+    position: fixed; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 30;
+    animation: scan 9s linear infinite;
+  }
+  @keyframes scan {
+    0% { top: -2%; }
+    100% { top: 102%; }
+  }
+
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 14px; }
+    .nav-links { order: 3; flex-basis: 100%; justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; }
+    .nav-links::-webkit-scrollbar { display: none; }
+    section.list { padding: 40px 16px; }
+    header.hero { padding: 50px 16px 30px; }
+    .search-wrap input { width: 160px; }
+    .search-wrap input:focus { width: 180px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scanline"></div>
+
+<nav class="topbar">
+  <div class="brand">AIDAN.RANK<span>// v2026</span></div>
+  <div class="nav-links">
+    <a href="#book-series">BOOKS</a>
+    <a href="#tv-series">TV</a>
+    <a href="#movies">MOVIES</a>
+    <a href="#movie-series">SAGAS</a>
+    <a href="#watchlist">WATCHLIST</a>
+  </div>
+  <div class="search-wrap"><input id="search" type="text" placeholder="Filter…" /></div>
+  <button class="refresh-btn" id="refresh" title="Re-fetch cover art">↻ COVERS</button>
+</nav>
+
+<header class="hero">
+  <h1>PERSONAL ARCHIVES</h1>
+  <p>BOOKS · TV · MOVIES · RANKED</p>
+  <div class="hero-line"></div>
+</header>
+
+<main id="main"></main>
+
+<div class="modal-wrap" id="modal">
+  <div class="modal">
+    <button class="close" id="modal-close">×</button>
+    <div id="modal-cover"></div>
+    <h3 id="modal-title"></h3>
+    <div class="modal-meta" id="modal-meta"></div>
+    <a id="modal-link" class="modal-link" target="_blank" rel="noopener">SEARCH ON GOOGLE →</a>
+  </div>
+</div>
+
+<footer>
+  <span class="pulse"></span> SIGNAL ACTIVE <span class="pulse"></span>
+</footer>
+
+<script>
+// ─── DATA (exact order from Word doc) ─────────────────────────────────────
+const DATA = {
+  bookSeries: {
+    label: 'Best Book Series of All Time',
+    type: 'book',
+    items: [
+      'Eragon + Murtagh',
+      'Percy Jackson + Heroes of Olympus + Trials of Apollo + one-off books',
+      'Fablehaven + Dragonwatch',
+      'Stormlight Chronicles + Mistborn first trilogy',
+      'Rangers Apprentice',
+      'Hunger games + all the one-off books after it',
+      'Kane Chronicles',
+      'Harry Potter',
+      'Magnus Chase books',
+      'Divergent',
+      'Maze runner',
+    ],
+  },
+  tvSeries: {
+    label: 'Best TV Series of All Time',
+    type: 'tv',
+    items: [
+      'Game of thrones',
+      'Suits',
+      'Curb your enthusiasm',
+      'Landman',
+      'Gossip girl',
+      'Yellowstone',
+      'Friends',
+      'Masters of the air',
+      'Clone wars',
+      'Blue mountain state',
+      'The Queens gambit',
+      '1923',
+      'Sopranos',
+      'The Gentlemen',
+      '1883',
+      'Vampire Diaries',
+      'Ted Lasso',
+      'House of Dragon',
+      'Friends and Neighbors',
+      'One Tree Hill',
+      'Gossip girl',
+      'Knight of the Seven Kingdoms',
+      'Welcome to Wrexham',
+      'Dune: Prophecy',
+      'Emily in Paris',
+      'Percy Jackson',
+      'Lioness',
+      'The OC',
+      'Derry Girls',
+    ],
+  },
+  movies: {
+    label: 'Best Movies of All Time',
+    type: 'movie',
+    items: [
+      'Interstellar',
+      'Troy',
+      'Happy Gilmore',
+      'Wolf of Wall street',
+      'Gladiator',
+      'Pulp fiction',
+      'Shashank Redemption',
+      'Top Gun',
+      'Goodwill hunting',
+      'Inception',
+      'Inglorious Bastards',
+      'The notebook',
+      'Borat',
+      'The 300',
+      'Caddyshack',
+      'Zero Dark Thirty',
+      'Oppenheimer',
+      'Ford vs Ferrari',
+      'Top Gun Maverick',
+      'Moneyball',
+      'Draft day',
+      'Hacksaw ridge',
+      'The town',
+      'The legend of bagger vance',
+      'Seven',
+      'Miracle',
+      'Any given sunday',
+      'Air',
+      'F1 movie',
+      'Point Break',
+      'Once upon a time in hollywood',
+      'Happy Gilmore 2',
+      'Borat 2',
+      'Snatch',
+      'Senna',
+      'Blood Diamond',
+      "He's just not that into you",
+      'The Boys in the Boat',
+      'Pearl Harbor',
+      'Fight Club',
+      'The big short',
+      'Hoosiers',
+      'Mr. and Mrs. Smith',
+      '10 things I hate about you',
+      "White men can't jump",
+      'Hitch',
+      'Dictator',
+      'Gladiator 2',
+      'The Gentlemen',
+      'Percy Jackson',
+      'Dodgeball',
+    ],
+  },
+  movieSeries: {
+    label: 'Best Movie Series',
+    type: 'movie',
+    items: [
+      'Star wars',
+      'James bond',
+      'Jason Bourne',
+      'The dark knight',
+      'Oceans 11',
+      'Avengers',
+      'Harry Potter series',
+      'Dune series',
+      'Hunger games series',
+      'Lord of the Rings',
+      'Indiana Jones',
+      'Rocky series',
+      'Pirates of the caribbean',
+      'Knives out',
+      'Maze runner series',
+      'Enola Holmes',
+      'Twisters',
+    ],
+  },
+  booksToRead: {
+    label: 'Books — Want to Read / Re-read',
+    type: 'book',
+    watchlist: true,
+    items: [
+      'Second Mistborn trilogy',
+      'Eragon again (been too many years)',
+      'Wildzone (September 2026 release — new Percy Jackson book)',
+    ],
+  },
+  tvToWatch: {
+    label: 'TV — Want to Watch',
+    type: 'tv',
+    watchlist: true,
+    items: [
+      'Sherlock',
+      'Friday night lights',
+      'Andor',
+      'Star wars – Maul',
+      'Dutton ranch',
+      'Marshals',
+    ],
+  },
+  moviesToWatch: {
+    label: 'Movies — Want to Watch',
+    type: 'movie',
+    watchlist: true,
+    items: [
+      'The last duel',
+      'The good the bad the ugly',
+      'Project Hail mary',
+      'Rocky series',
+      'Odyssey',
+      'Hoop dreams',
+      'Raging bull',
+      'Brokeback mountain',
+      'Send Help',
+      'Eternity',
+      'Mandalorian and grogu',
+    ],
+  },
+};
+
+// Manual search-term overrides where doc spelling won't match the API
+const SEARCH_OVERRIDES = {
+  'Shashank Redemption': 'The Shawshank Redemption',
+  'Goodwill hunting': 'Good Will Hunting',
+  'Inglorious Bastards': 'Inglourious Basterds',
+  'The 300': '300',
+  'Sopranos': 'The Sopranos',
+  'Friends and Neighbors': 'Your Friends and Neighbors',
+  'Knight of the Seven Kingdoms': 'A Knight of the Seven Kingdoms',
+  'F1 movie': 'F1 2025 film',
+  'Air': 'Air 2023 film',
+  'Eternity': 'Eternity 2024 film',
+  'Twisters': 'Twisters 2024 film',
+  'Senna': 'Senna 2010 film',
+  'Borat 2': 'Borat Subsequent Moviefilm',
+  'Pearl Harbor': 'Pearl Harbor 2001 film',
+  'movie:The Gentlemen': 'The Gentlemen 2019 film',
+  'movie:Percy Jackson': 'Percy Jackson Sea of Monsters',
+  'tv:The Gentlemen': 'The Gentlemen',
+  'tv:Percy Jackson': 'Percy Jackson and the Olympians',
+  'Happy Gilmore': 'Happy Gilmore 1996',
+  'Wolf of Wall street': 'The Wolf of Wall Street 2013',
+  'Snatch': 'Snatch 2000 film',
+  'Hoosiers': 'Hoosiers film',
+  'Hitch': 'Hitch 2005 film',
+  'Miracle': 'Miracle 2004 film',
+  'Send Help': 'Send Help film',
+  'Odyssey': 'The Odyssey Nolan film',
+  'The notebook': 'The Notebook',
+  'Wolf of Wall street': 'The Wolf of Wall Street',
+  'The 300': '300',
+  'Star wars – Maul': 'Star Wars Maul',
+  'Dutton ranch': 'The Dutton Ranch',
+  'Curb your enthusiasm': 'Curb Your Enthusiasm',
+  'Queens gambit': "The Queen's Gambit",
+  'The Queens gambit': "The Queen's Gambit",
+  'Clone wars': 'Star Wars The Clone Wars',
+  'House of Dragon': 'House of the Dragon',
+  'Welcome to Wrexham': 'Welcome to Wrexham',
+  'Vampire Diaries': 'The Vampire Diaries',
+  'The OC': 'The O.C.',
+  'Maze runner': 'The Maze Runner',
+  'Maze runner series': 'The Maze Runner',
+  'Oceans 11': "Ocean's Eleven",
+  'James bond': 'James Bond',
+  'Jason Bourne': 'The Bourne Identity',
+  'The dark knight': 'The Dark Knight',
+  'Star wars': 'Star Wars',
+  'Dune series': 'Dune',
+  'Hunger games series': 'The Hunger Games',
+  'Harry Potter series': "Harry Potter and the Sorcerer's Stone",
+  'Lord of the Rings': 'The Lord of the Rings The Fellowship of the Ring',
+  'Pirates of the caribbean': 'Pirates of the Caribbean',
+  'Indiana Jones': 'Indiana Jones Raiders of the Lost Ark',
+  'Rocky series': 'Rocky',
+  'Avengers': 'The Avengers 2012',
+  'Knives out': 'Knives Out',
+  'Enola Holmes': 'Enola Holmes',
+  'Hunger games + all the one-off books after it': 'The Hunger Games Suzanne Collins',
+  'Eragon + Murtagh': 'Eragon Christopher Paolini',
+  'Eragon again (been too many years)': 'Eragon Christopher Paolini',
+  'Percy Jackson + Heroes of Olympus + Trials of Apollo + one-off books': 'Percy Jackson Lightning Thief',
+  'Fablehaven + Dragonwatch': 'Fablehaven Brandon Mull',
+  'Stormlight Chronicles + Mistborn first trilogy': 'The Way of Kings Brandon Sanderson',
+  'Second Mistborn trilogy': 'Mistborn Alloy of Law',
+  'Rangers Apprentice': "Ranger's Apprentice The Ruins of Gorlan",
+  'Kane Chronicles': 'The Red Pyramid Rick Riordan',
+  'Harry Potter': "Harry Potter and the Sorcerer's Stone",
+  'Magnus Chase books': 'Magnus Chase and the Sword of Summer',
+  'Divergent': 'Divergent Veronica Roth',
+  'Wildzone (September 2026 release — new Percy Jackson book)': 'Wildzone Rick Riordan',
+  'Project Hail mary': 'Project Hail Mary Andy Weir',
+  'The Boys in the Boat': 'Boys in the Boat',
+  'The legend of bagger vance': 'The Legend of Bagger Vance',
+  'White men can\'t jump': "White Men Can't Jump",
+  'Mr. and Mrs. Smith': 'Mr. and Mrs. Smith',
+  'Borat 2': 'Borat Subsequent Moviefilm',
+  'Happy Gilmore 2': 'Happy Gilmore 2',
+  'Once upon a time in hollywood': 'Once Upon a Time in Hollywood',
+  'Dictator': 'The Dictator',
+  'The town': 'The Town',
+  'Seven': 'Se7en',
+  'Air': 'Air Ben Affleck',
+  'Senna': 'Senna 2010',
+  'Eternity': 'Eternity 2024',
+  'Send Help': 'Send Help',
+  'Mandalorian and grogu': 'The Mandalorian',
+  'Odyssey': 'The Odyssey Christopher Nolan',
+  'Pearl Harbor': 'Pearl Harbor 2001',
+  'Twisters': 'Twisters 2024',
+  'Lioness': 'Special Ops Lioness',
+};
+
+// ─── COVER FETCH ──────────────────────────────────────────────────────────
+const CACHE_PREFIX = 'cover:v2:';
+function cacheKey(type, title) { return CACHE_PREFIX + type + ':' + title; }
+
+function getCached(type, title) {
+  try { return localStorage.getItem(cacheKey(type, title)); }
+  catch(e) { return null; }
+}
+function setCached(type, title, url) {
+  try { localStorage.setItem(cacheKey(type, title), url || 'NONE'); } catch(e){}
+}
+
+// TV via TVMaze (CORS-enabled, no key)
+async function fetchTV(term) {
+  try {
+    const r = await fetch(`https://api.tvmaze.com/singlesearch/shows?q=${encodeURIComponent(term)}`);
+    if (!r.ok) return null;
+    const j = await r.json();
+    return (j.image && (j.image.original || j.image.medium)) || null;
+  } catch(e) { return null; }
+}
+
+// Movies via Wikipedia search + REST summary (CORS-enabled, no key)
+async function fetchMovie(term) {
+  try {
+    // Step 1: try direct REST summary with "(film)" suffix
+    const directGuesses = [
+      term.replace(/ /g,'_') + '_(film)',
+      term.replace(/ /g,'_'),
+    ];
+    for (const g of directGuesses) {
+      const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(g)}`);
+      if (!r.ok) continue;
+      const j = await r.json();
+      if (j.type === 'disambiguation') continue;
+      const img = (j.originalimage && j.originalimage.source) || (j.thumbnail && j.thumbnail.source);
+      if (img && /\.(jpe?g|png|gif|webp)$/i.test(img)) return img;
+    }
+    // Step 2: search and walk top 4 results
+    const sr = await fetch(`https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${encodeURIComponent(term + ' film')}&srlimit=4&origin=*`);
+    const sj = await sr.json();
+    if (!sj.query || !sj.query.search.length) return null;
+    for (const s of sj.query.search) {
+      const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(s.title.replace(/ /g,'_'))}`);
+      if (!r.ok) continue;
+      const j = await r.json();
+      if (j.type === 'disambiguation') continue;
+      const img = (j.originalimage && j.originalimage.source) || (j.thumbnail && j.thumbnail.source);
+      if (img && /\.(jpe?g|png|gif|webp)$/i.test(img)) return img;
+    }
+  } catch(e){}
+  return null;
+}
+
+async function fetchBookCover(term) {
+  try {
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(term)}&maxResults=1`;
+    const r = await fetch(url);
+    if (r.ok) {
+      const j = await r.json();
+      const links = j.items && j.items[0] && j.items[0].volumeInfo && j.items[0].volumeInfo.imageLinks;
+      if (links) {
+        let img = links.thumbnail || links.smallThumbnail;
+        if (img) {
+          img = img.replace('http://', 'https://').replace('&edge=curl','').replace('zoom=1','zoom=2');
+          return img;
+        }
+      }
+    }
+  } catch(e){}
+  try {
+    const url2 = `https://openlibrary.org/search.json?q=${encodeURIComponent(term)}&limit=1`;
+    const r2 = await fetch(url2);
+    if (r2.ok) {
+      const j2 = await r2.json();
+      const doc = j2.docs && j2.docs[0];
+      if (doc && doc.cover_i) return `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`;
+    }
+  } catch(e){}
+  return null;
+}
+
+async function lookupCover(type, title) {
+  const cached = getCached(type, title);
+  if (cached) return cached === 'NONE' ? null : cached;
+  const term = SEARCH_OVERRIDES[type + ':' + title] || SEARCH_OVERRIDES[title] || title;
+  let url = null;
+  if (type === 'movie') url = await fetchMovie(term);
+  else if (type === 'tv') url = await fetchTV(term);
+  else if (type === 'book') url = await fetchBookCover(term);
+  setCached(type, title, url);
+  return url;
+}
+
+// Concurrency limiter
+async function runWithLimit(items, fn, limit = 8) {
+  const results = new Array(items.length);
+  let idx = 0;
+  async function worker() {
+    while (idx < items.length) {
+      const i = idx++;
+      try { results[i] = await fn(items[i], i); }
+      catch(e) { results[i] = null; }
+    }
+  }
+  await Promise.all(Array.from({length: limit}, worker));
+  return results;
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────
+const SECTION_ORDER = ['bookSeries', 'tvSeries', 'movies', 'movieSeries', 'booksToRead', 'tvToWatch', 'moviesToWatch'];
+const SECTION_IDS = {
+  bookSeries: 'book-series',
+  tvSeries: 'tv-series',
+  movies: 'movies',
+  movieSeries: 'movie-series',
+  booksToRead: 'watchlist',
+  tvToWatch: 'tv-watchlist',
+  moviesToWatch: 'movies-watchlist',
+};
+
+function buildCardEl(item, idx, type, isWatchlist) {
+  const isTop = idx === 0 && !isWatchlist;
+  const card = document.createElement('div');
+  card.className = 'card' + (type === 'book' ? ' book' : '') + (isTop ? ' top' : '');
+  card.dataset.title = item.toLowerCase();
+
+  const inner = document.createElement('div');
+  inner.className = 'inner';
+  if (!isTop) {
+    inner.style.all = 'unset';
+    inner.style.display = 'contents';
+  }
+
+  const cover = document.createElement('div');
+  cover.className = 'cover';
+  const placeholder = document.createElement('div');
+  placeholder.className = 'placeholder';
+  placeholder.textContent = item.length > 30 ? item.slice(0, 28).toUpperCase() + '…' : item.toUpperCase();
+  cover.appendChild(placeholder);
+
+  const badge = document.createElement('div');
+  badge.className = 'rank-badge';
+  badge.textContent = '#' + (idx + 1);
+  cover.appendChild(badge);
+
+  const meta = document.createElement('div');
+  meta.className = 'meta';
+  const title = document.createElement('div');
+  title.className = 'title';
+  title.textContent = item;
+  meta.appendChild(title);
+
+  if (isTop) {
+    inner.appendChild(cover);
+    inner.appendChild(meta);
+    card.appendChild(inner);
+  } else {
+    card.appendChild(cover);
+    card.appendChild(meta);
+  }
+
+  card.addEventListener('click', () => openModal(item, type, card._coverUrl));
+  return { card, cover, placeholder };
+}
+
+function buildSection(key) {
+  const sec = DATA[key];
+  const el = document.createElement('section');
+  el.className = 'list' + (sec.watchlist ? ' watchlist' : '');
+  el.id = SECTION_IDS[key];
+
+  const head = document.createElement('div');
+  head.className = 'section-head';
+  head.innerHTML = `
+    <span class="section-num">${String(SECTION_ORDER.indexOf(key)+1).padStart(2,'0')}</span>
+    <h2>${sec.label}</h2>
+    <span class="count">${sec.items.length} ENTRIES</span>
+    <div class="underline"></div>
+  `;
+  el.appendChild(head);
+
+  const grid = document.createElement('div');
+  grid.className = 'grid';
+  const builtCards = sec.items.map((item, idx) => {
+    const built = buildCardEl(item, idx, sec.type, !!sec.watchlist);
+    grid.appendChild(built.card);
+    return built;
+  });
+  el.appendChild(grid);
+
+  return { el, builtCards, key };
+}
+
+function attachIntersection(cards) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in-view');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05 });
+  cards.forEach(({card}) => io.observe(card));
+}
+
+async function loadCovers(section) {
+  await runWithLimit(section.builtCards, async (built, i) => {
+    const item = DATA[section.key].items[i];
+    const type = DATA[section.key].type;
+    const url = await lookupCover(type, item);
+    if (url) {
+      built.card._coverUrl = url;
+      const img = new Image();
+      img.alt = item;
+      img.onload = () => {
+        built.cover.innerHTML = '';
+        const badge = document.createElement('div');
+        badge.className = 'rank-badge';
+        badge.textContent = '#' + (i + 1);
+        built.cover.appendChild(img);
+        built.cover.appendChild(badge);
+      };
+      img.onerror = () => {};
+      img.src = url;
+    }
+  }, 6);
+}
+
+// ─── MODAL ────────────────────────────────────────────────────────────────
+const modal = document.getElementById('modal');
+const modalCover = document.getElementById('modal-cover');
+const modalTitle = document.getElementById('modal-title');
+const modalMeta  = document.getElementById('modal-meta');
+const modalLink  = document.getElementById('modal-link');
+document.getElementById('modal-close').addEventListener('click', closeModal);
+modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+function openModal(title, type, coverUrl) {
+  modalCover.innerHTML = '';
+  if (coverUrl) {
+    const img = document.createElement('img');
+    img.src = coverUrl;
+    img.alt = title;
+    modalCover.appendChild(img);
+  } else {
+    const ph = document.createElement('div');
+    ph.className = 'placeholder';
+    ph.textContent = title.toUpperCase();
+    modalCover.appendChild(ph);
+  }
+  modalTitle.textContent = title;
+  modalMeta.textContent = type.toUpperCase();
+  modalLink.href = 'https://www.google.com/search?q=' + encodeURIComponent(title + ' ' + type);
+  modal.classList.add('open');
+}
+function closeModal() { modal.classList.remove('open'); }
+
+// ─── SEARCH FILTER ────────────────────────────────────────────────────────
+const searchInput = document.getElementById('search');
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  document.querySelectorAll('.card').forEach(c => {
+    if (!q) c.style.display = '';
+    else c.style.display = c.dataset.title.includes(q) ? '' : 'none';
+  });
+});
+
+// ─── REFRESH ──────────────────────────────────────────────────────────────
+document.getElementById('refresh').addEventListener('click', () => {
+  if (!confirm('Clear cached covers and re-fetch?')) return;
+  Object.keys(localStorage).filter(k => k.startsWith(CACHE_PREFIX)).forEach(k => localStorage.removeItem(k));
+  location.reload();
+});
+
+// ─── BOOT ─────────────────────────────────────────────────────────────────
+(function init() {
+  const main = document.getElementById('main');
+  const sections = SECTION_ORDER.map(buildSection);
+  sections.forEach(s => main.appendChild(s.el));
+  attachIntersection(sections.flatMap(s => s.builtCards));
+  // Fire cover loads (parallel across sections, limited inside)
+  sections.forEach(loadCovers);
+})();
+</script>
+</body>
+</html>
