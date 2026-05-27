@@ -11,9 +11,6 @@
   :root {
     --bg: #eef0f4;
     --bg-soft: #e3e6ed;
-    --marble-1: #f7f6f1;
-    --marble-2: #dcd9d2;
-    --marble-vein: rgba(120,128,140,0.18);
     --ink: #2a2823;
     --ink-soft: #6a6760;
     --muted: #9a978f;
@@ -26,9 +23,7 @@
     --bronze: #b46a3a;
     --bronze-2: #d9966a;
     --bronze-deep: #6b3a18;
-    --accent: #4a5a6a;
     --line: rgba(58,62,72,0.18);
-    --card-bg: rgba(255,255,255,0.55);
     --card-border: rgba(58,62,72,0.14);
     --shadow-soft: 0 12px 30px rgba(40,44,52,0.10), 0 2px 8px rgba(40,44,52,0.06);
     --shadow-strong: 0 28px 60px rgba(40,44,52,0.18), 0 8px 20px rgba(40,44,52,0.10);
@@ -42,8 +37,6 @@
       linear-gradient(180deg, #eef0f4 0%, #d9dce3 100%);
     background-attachment: fixed;
   }
-
-  /* Marble veins overlay */
   body::before {
     content: '';
     position: fixed; inset: 0;
@@ -55,7 +48,6 @@
     pointer-events: none;
     z-index: -2;
   }
-  /* Pillars silhouette */
   body::after {
     content: '';
     position: fixed;
@@ -64,42 +56,18 @@
     background:
       linear-gradient(180deg, transparent, rgba(80,86,96,0.10)),
       repeating-linear-gradient(90deg,
-        transparent 0px,
-        transparent 80px,
-        rgba(120,128,140,0.10) 80px,
-        rgba(120,128,140,0.10) 84px,
-        transparent 84px,
-        transparent 164px,
-        rgba(120,128,140,0.06) 164px,
-        rgba(120,128,140,0.06) 256px
-      );
+        transparent 0px, transparent 80px,
+        rgba(120,128,140,0.10) 80px, rgba(120,128,140,0.10) 84px,
+        transparent 84px, transparent 164px,
+        rgba(120,128,140,0.06) 164px, rgba(120,128,140,0.06) 256px);
     mask-image: linear-gradient(180deg, transparent 0%, black 80%);
     pointer-events: none;
     z-index: -1;
     opacity: 0.55;
   }
 
-  /* ─── HEADER ───────────────────────────────────────────────────────── */
-  header.hero {
-    text-align: center;
-    padding: 70px 24px 30px;
-    position: relative;
-  }
-  header.hero .brand-mark {
-    display: inline-block;
-    font-family: 'Cinzel', serif;
-    font-weight: 600;
-    letter-spacing: 6px;
-    color: var(--ink-soft);
-    font-size: 11px;
-    margin-bottom: 18px;
-    padding: 6px 18px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: rgba(255,255,255,0.4);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-  }
+  /* ─── HERO ──────────────────────────────────────────────────────────── */
+  header.hero { text-align: center; padding: 70px 24px 30px; }
   header.hero h1 {
     font-family: 'Cinzel', serif;
     font-weight: 700;
@@ -133,30 +101,19 @@
     margin-right: auto;
     line-height: 1.5;
   }
-  header.hero .subhead .arrow {
-    color: var(--gold-deep);
-    margin: 0 6px;
-  }
+  header.hero .subhead .arrow { color: var(--gold-deep); margin: 0 6px; }
   header.hero .laurel {
-    width: 180px;
-    height: 28px;
+    width: 180px; height: 28px;
     margin: 28px auto 0;
     position: relative;
   }
-  header.hero .laurel::before, header.hero .laurel::after {
-    content: '⚜';
-    position: absolute;
-    top: 0; font-size: 18px;
-    color: var(--gold-deep);
-    opacity: 0.7;
-  }
-  header.hero .laurel::before { left: 50%; transform: translateX(-50%); }
+  header.hero .laurel::before { content: '⚜'; position: absolute; left: 50%; top: 0; transform: translateX(-50%); font-size: 18px; color: var(--gold-deep); opacity: 0.7; }
   header.hero .laurel > .line { position: absolute; top: 50%; height: 1px; width: 60px;
     background: linear-gradient(90deg, transparent, var(--gold-deep), transparent); }
   header.hero .laurel > .line.left { left: 0; }
   header.hero .laurel > .line.right { right: 0; }
 
-  /* ─── TABS ─────────────────────────────────────────────────────────── */
+  /* ─── TABS ──────────────────────────────────────────────────────────── */
   .tabs-wrap {
     display: flex; justify-content: center; flex-wrap: wrap;
     gap: 10px;
@@ -177,9 +134,7 @@
     border-radius: 4px;
     cursor: pointer;
     transition: all .25s cubic-bezier(.2,.8,.2,1);
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,0.8),
-      0 2px 6px rgba(40,44,52,0.06);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 2px 6px rgba(40,44,52,0.06);
     position: relative;
     overflow: hidden;
   }
@@ -195,17 +150,13 @@
     color: var(--ink);
     border-color: var(--gold-deep);
     transform: translateY(-2px);
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,0.9),
-      0 6px 14px rgba(40,44,52,0.12);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 6px 14px rgba(40,44,52,0.12);
   }
   .tab.active {
     color: #fff;
     background: linear-gradient(180deg, #4a4a4a 0%, #2a2823 100%);
     border-color: var(--gold-deep);
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,0.15),
-      0 4px 14px rgba(40,44,52,0.25);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 4px 14px rgba(40,44,52,0.25);
   }
   .tab .count {
     display: inline-block;
@@ -216,56 +167,76 @@
   }
   .tab.active .count { color: var(--gold-2); }
 
-  /* Search row */
-  .util-row {
-    display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+  /* ─── FILTER CHIPS ──────────────────────────────────────────────────── */
+  .filters-wrap {
+    max-width: 1200px;
+    margin: 28px auto 0;
     padding: 0 24px;
-    margin: 14px auto 0;
-    max-width: 1100px;
+    text-align: center;
   }
-  .search-wrap { position: relative; }
-  .search-wrap input {
-    background: rgba(255,255,255,0.7);
-    border: 1px solid var(--line);
-    color: var(--ink);
-    padding: 10px 18px 10px 40px;
-    border-radius: 999px;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 16px;
-    width: 260px;
-    outline: none;
-    transition: all .2s;
-    box-shadow: inset 0 1px 3px rgba(40,44,52,0.05);
-  }
-  .search-wrap input:focus { border-color: var(--gold-deep); background: #fff; width: 320px; }
-  .search-wrap::before {
-    content: '⌕'; position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
-    color: var(--ink-soft); font-size: 18px; pointer-events: none;
-  }
-  .refresh-btn {
-    background: transparent;
-    border: 1px solid var(--line);
+  .filters-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 4px;
     color: var(--ink-soft);
-    padding: 9px 18px;
-    border-radius: 999px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .filters-label .clear {
+    margin-left: 14px;
+    background: transparent;
+    border: none;
+    color: var(--gold-deep);
     font-family: 'Cinzel', serif;
     font-size: 10px;
     letter-spacing: 2px;
     cursor: pointer;
-    transition: all .2s;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    display: none;
   }
-  .refresh-btn:hover { color: var(--ink); border-color: var(--gold-deep); }
+  .filters-label .clear.visible { display: inline-block; }
+  .filter-chips {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 7px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .chip {
+    font-family: 'Cinzel', serif;
+    font-size: 10.5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: rgba(255,255,255,0.6);
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all .2s;
+    user-select: none;
+  }
+  .chip:hover {
+    color: var(--ink);
+    border-color: var(--gold-deep);
+    background: rgba(255,255,255,0.9);
+  }
+  .chip.active {
+    color: #fff;
+    background: linear-gradient(180deg, var(--gold) 0%, var(--gold-deep) 100%);
+    border-color: var(--gold-deep);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 8px rgba(142,106,35,0.4);
+  }
+  .chip.active::after { content: ' ✓'; font-size: 10px; }
 
-  /* ─── SECTION ──────────────────────────────────────────────────────── */
-  main { max-width: 1400px; margin: 0 auto; padding: 50px 32px 80px; }
+  /* ─── MAIN ─────────────────────────────────────────────────────────── */
+  main { max-width: 1400px; margin: 0 auto; padding: 30px 32px 80px; }
   section.list { display: none; }
-  section.list.active { display: block; animation: section-fade .6s ease; }
+  section.list.active { display: block; animation: section-fade .5s ease; }
+  section.list + section.list.active { margin-top: 80px; }
   @keyframes section-fade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-  .section-head {
-    text-align: center;
-    margin-bottom: 50px;
-  }
+  .section-head { text-align: center; margin-bottom: 40px; padding-top: 30px; }
   .section-head .eyebrow {
     font-family: 'Cinzel', serif;
     font-weight: 500;
@@ -287,8 +258,7 @@
     -webkit-text-fill-color: transparent;
   }
   .section-head .divider {
-    width: 240px;
-    height: 1px;
+    width: 240px; height: 1px;
     margin: 22px auto 0;
     background: linear-gradient(90deg, transparent, var(--gold-deep), transparent);
     position: relative;
@@ -319,20 +289,38 @@
     overflow: hidden;
     cursor: pointer;
     box-shadow: var(--shadow-soft);
-    transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s;
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s, opacity .35s;
     opacity: 0;
   }
   .card.in-view { opacity: 1; transition: opacity .6s ease; }
+  .card.hidden-by-filter { display: none !important; }
   .card:hover {
     transform: translateY(-8px) scale(1.025);
     box-shadow: var(--shadow-strong);
     z-index: 4;
   }
+  /* Title block ABOVE the poster */
+  .card .title-strip {
+    background: linear-gradient(180deg, #2a2823 0%, #3a3530 100%);
+    color: #ffffff;
+    padding: 16px 12px;
+    font-family: 'Cinzel', serif;
+    font-weight: 500;
+    font-size: 12.5px;
+    letter-spacing: 1.5px;
+    text-align: center;
+    line-height: 1.3;
+    min-height: 58px;
+    display: flex; align-items: center; justify-content: center;
+    border-bottom: 2px solid var(--gold-deep);
+    text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+  }
+  .card .title-strip.long { font-size: 10.5px; letter-spacing: 1px; min-height: 72px; padding: 14px 10px; }
+  .card .title-strip.very-long { font-size: 9.5px; letter-spacing: 0.5px; min-height: 86px; padding: 12px 8px; line-height: 1.35; }
   .card .cover {
     width: 100%;
     aspect-ratio: 2/3;
-    background:
-      linear-gradient(135deg, #f1efe8 0%, #d8d4ca 100%);
+    background: linear-gradient(135deg, #f1efe8 0%, #d8d4ca 100%);
     display: flex; align-items: center; justify-content: center;
     position: relative;
     overflow: hidden;
@@ -354,25 +342,6 @@
     display: flex; align-items: center; justify-content: center;
   }
 
-  /* Title overlaid on cover image */
-  .card .title-overlay {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 38px 12px 14px;
-    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.55) 38%, rgba(0,0,0,0.92) 100%);
-    color: #ffffff;
-    font-family: 'Cinzel', serif;
-    font-weight: 500;
-    font-size: 12px;
-    letter-spacing: 1.4px;
-    text-align: center;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 0 12px rgba(0,0,0,0.7);
-    line-height: 1.32;
-    pointer-events: none;
-    z-index: 2;
-  }
-  .card .title-overlay.long { font-size: 10.5px; letter-spacing: 1px; padding-top: 30px; }
-
   /* Rank badge - circular */
   .rank-badge {
     position: absolute; top: 12px; left: 12px; z-index: 3;
@@ -385,41 +354,26 @@
     color: var(--ink);
     background: radial-gradient(circle at 35% 30%, #ffffff 0%, #e7e5dd 60%, #c8c5bb 100%);
     border: 1px solid rgba(58,62,72,0.18);
-    box-shadow:
-      inset 0 1px 2px rgba(255,255,255,0.9),
-      inset 0 -2px 4px rgba(0,0,0,0.10),
-      0 4px 10px rgba(40,44,52,0.18);
+    box-shadow: inset 0 1px 2px rgba(255,255,255,0.9), inset 0 -2px 4px rgba(0,0,0,0.10), 0 4px 10px rgba(40,44,52,0.18);
     text-shadow: 0 1px 0 rgba(255,255,255,0.6);
   }
   .rank-badge.gold {
     color: #5a3e10;
     background: radial-gradient(circle at 35% 25%, #fff4c4 0%, #e8c87b 35%, #c9a24c 70%, #8e6a23 100%);
     border: 1px solid #8e6a23;
-    box-shadow:
-      inset 0 2px 3px rgba(255,255,255,0.85),
-      inset 0 -3px 5px rgba(80,55,10,0.45),
-      0 6px 14px rgba(180,140,40,0.45),
-      0 0 22px rgba(232,200,123,0.35);
+    box-shadow: inset 0 2px 3px rgba(255,255,255,0.85), inset 0 -3px 5px rgba(80,55,10,0.45), 0 6px 14px rgba(180,140,40,0.45), 0 0 22px rgba(232,200,123,0.35);
   }
   .rank-badge.silver {
     color: #383838;
     background: radial-gradient(circle at 35% 25%, #ffffff 0%, #e2e2e6 35%, #b6b6b9 70%, #6e6e74 100%);
     border: 1px solid #6e6e74;
-    box-shadow:
-      inset 0 2px 3px rgba(255,255,255,0.95),
-      inset 0 -3px 5px rgba(50,50,60,0.45),
-      0 6px 14px rgba(120,120,130,0.45),
-      0 0 22px rgba(226,226,230,0.4);
+    box-shadow: inset 0 2px 3px rgba(255,255,255,0.95), inset 0 -3px 5px rgba(50,50,60,0.45), 0 6px 14px rgba(120,120,130,0.45), 0 0 22px rgba(226,226,230,0.4);
   }
   .rank-badge.bronze {
     color: #3c1d05;
     background: radial-gradient(circle at 35% 25%, #ffe2c8 0%, #d9966a 35%, #b46a3a 70%, #6b3a18 100%);
     border: 1px solid #6b3a18;
-    box-shadow:
-      inset 0 2px 3px rgba(255,235,210,0.85),
-      inset 0 -3px 5px rgba(60,30,5,0.45),
-      0 6px 14px rgba(160,100,55,0.45),
-      0 0 22px rgba(217,150,106,0.35);
+    box-shadow: inset 0 2px 3px rgba(255,235,210,0.85), inset 0 -3px 5px rgba(60,30,5,0.45), 0 6px 14px rgba(160,100,55,0.45), 0 0 22px rgba(217,150,106,0.35);
   }
 
   /* Top 3 card framing */
@@ -427,10 +381,7 @@
   .card.tier-1 { background: linear-gradient(135deg, #fff4c4 0%, #c9a24c 35%, #8e6a23 65%, #e8c87b 100%); background-size: 200% 200%; animation: shine 6s ease-in-out infinite; }
   .card.tier-2 { background: linear-gradient(135deg, #ffffff 0%, #b6b6b9 35%, #6e6e74 65%, #e2e2e6 100%); background-size: 200% 200%; animation: shine 6s ease-in-out infinite; }
   .card.tier-3 { background: linear-gradient(135deg, #ffe2c8 0%, #b46a3a 35%, #6b3a18 65%, #d9966a 100%); background-size: 200% 200%; animation: shine 6s ease-in-out infinite; }
-  @keyframes shine {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
+  @keyframes shine { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
   .card.tier-1 > .inner, .card.tier-2 > .inner, .card.tier-3 > .inner {
     background: linear-gradient(180deg, #fcfbf8 0%, #ebe9e2 100%);
     border-radius: 8px;
@@ -486,6 +437,21 @@
     letter-spacing: 3px;
     text-transform: uppercase;
   }
+  .modal .modal-tags {
+    margin-top: 14px;
+    display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
+  }
+  .modal .modal-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 9.5px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: rgba(255,255,255,0.6);
+    border: 1px solid var(--line);
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
   .modal .modal-link {
     display: inline-block;
     margin-top: 22px;
@@ -519,26 +485,21 @@
     font-size: 14px;
     letter-spacing: 1px;
   }
-  footer .ornament {
-    margin: 0 12px;
-    color: var(--gold-deep);
-  }
+  footer .ornament { margin: 0 12px; color: var(--gold-deep); }
 
   @media (max-width: 600px) {
     .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
-    main { padding: 30px 16px 50px; }
+    main { padding: 20px 16px 50px; }
     header.hero { padding: 50px 16px 20px; }
-    .search-wrap input { width: 180px; }
-    .search-wrap input:focus { width: 220px; }
     .tab { padding: 10px 16px; font-size: 11px; letter-spacing: 2px; }
     .rank-badge { width: 38px; height: 38px; font-size: 13px; }
+    .chip { font-size: 9.5px; padding: 5px 10px; }
   }
 </style>
 </head>
 <body>
 
 <header class="hero">
-  <div class="brand-mark">★ ANNO MMXXVI ★</div>
   <h1>Aidan's <em>Recommendations</em></h1>
   <p class="subhead">A personal archive of the finest in literature, television, and cinema. <br/><span class="arrow">⌃</span> Choose a category below to explore my rankings <span class="arrow">⌃</span></p>
   <div class="laurel">
@@ -549,9 +510,9 @@
 
 <div class="tabs-wrap" id="tabs"></div>
 
-<div class="util-row">
-  <div class="search-wrap"><input id="search" type="text" placeholder="Search within category…" /></div>
-  <button class="refresh-btn" id="refresh" title="Re-fetch cover art">↻ REFRESH COVERS</button>
+<div class="filters-wrap">
+  <div class="filters-label">Filter by Genre <button id="clear-filters" class="clear">Clear All</button></div>
+  <div class="filter-chips" id="filter-chips"></div>
 </div>
 
 <main id="main"></main>
@@ -562,6 +523,7 @@
     <div id="modal-cover"></div>
     <h3 id="modal-title"></h3>
     <div class="modal-meta" id="modal-meta"></div>
+    <div class="modal-tags" id="modal-tags"></div>
     <a id="modal-link" class="modal-link" target="_blank" rel="noopener">Search on Google →</a>
   </div>
 </div>
@@ -571,189 +533,193 @@
 </footer>
 
 <script>
-// ─── DATA (exact order from Word doc) ─────────────────────────────────────
+// ─── DATA (exact order from Word doc, with genre tags) ────────────────────
+// Helper to keep declarations terse
+const m = (title, ...tags) => ({ title, tags });
+
 const DATA = {
   bookSeries: {
     label: 'Best Book Series',
-    tabLabel: 'Books',
     type: 'book',
     items: [
-      'Eragon + Murtagh',
-      'Percy Jackson + Heroes of Olympus + Trials of Apollo + one-off books',
-      'Fablehaven + Dragonwatch',
-      'Stormlight Chronicles + Mistborn first trilogy',
-      'Rangers Apprentice',
-      'Hunger games + all the one-off books after it',
-      'Kane Chronicles',
-      'Harry Potter',
-      'Magnus Chase books',
-      'Divergent',
-      'Maze runner',
+      m('Eragon + Murtagh', 'Fantasy', 'Adventure'),
+      m('Percy Jackson + Heroes of Olympus + Trials of Apollo + one-off books', 'Fantasy', 'Adventure', 'Mythology'),
+      m('Fablehaven + Dragonwatch', 'Fantasy', 'Adventure'),
+      m('Stormlight Chronicles + Mistborn first trilogy', 'Fantasy', 'Epic'),
+      m('Rangers Apprentice', 'Fantasy', 'Adventure'),
+      m('Hunger games + all the one-off books after it', 'Sci-Fi', 'Action', 'Dystopian'),
+      m('Kane Chronicles', 'Fantasy', 'Adventure', 'Mythology'),
+      m('Harry Potter', 'Fantasy', 'Adventure'),
+      m('Magnus Chase books', 'Fantasy', 'Adventure', 'Mythology'),
+      m('Divergent', 'Sci-Fi', 'Action', 'Dystopian'),
+      m('Maze runner', 'Sci-Fi', 'Action', 'Dystopian'),
     ],
   },
   tvSeries: {
     label: 'Best TV Series',
-    tabLabel: 'TV Series',
     type: 'tv',
     items: [
-      'Game of thrones',
-      'Suits',
-      'Curb your enthusiasm',
-      'Landman',
-      'Gossip girl',
-      'Yellowstone',
-      'Friends',
-      'Masters of the air',
-      'Clone wars',
-      'Blue mountain state',
-      'The Queens gambit',
-      '1923',
-      'Sopranos',
-      'The Gentlemen',
-      '1883',
-      'Vampire Diaries',
-      'Ted Lasso',
-      'House of Dragon',
-      'Friends and Neighbors',
-      'One Tree Hill',
-      'Gossip girl',
-      'Knight of the Seven Kingdoms',
-      'Welcome to Wrexham',
-      'Dune: Prophecy',
-      'Emily in Paris',
-      'Percy Jackson',
-      'Lioness',
-      'The OC',
-      'Derry Girls',
+      m('Game of thrones', 'Fantasy', 'Drama', 'Epic'),
+      m('Suits', 'Drama', 'Comedy'),
+      m('Curb your enthusiasm', 'Comedy'),
+      m('Landman', 'Drama', 'Western'),
+      m('Gossip girl', 'Drama', 'Romance'),
+      m('Yellowstone', 'Drama', 'Western'),
+      m('Friends', 'Comedy', 'Romance'),
+      m('Masters of the air', 'War', 'Drama', 'Historical'),
+      m('Clone wars', 'Sci-Fi', 'Animated', 'Action'),
+      m('Blue mountain state', 'Comedy', 'Sports'),
+      m('The Queens gambit', 'Drama', 'Historical'),
+      m('1923', 'Drama', 'Western', 'Historical'),
+      m('Sopranos', 'Crime', 'Drama'),
+      m('The Gentlemen', 'Crime', 'Comedy', 'Action'),
+      m('1883', 'Drama', 'Western', 'Historical'),
+      m('Vampire Diaries', 'Fantasy', 'Romance', 'Drama'),
+      m('Ted Lasso', 'Comedy', 'Sports'),
+      m('House of Dragon', 'Fantasy', 'Drama', 'Epic'),
+      m('Friends and Neighbors', 'Drama', 'Comedy', 'Mystery'),
+      m('One Tree Hill', 'Drama', 'Romance'),
+      m('Gossip girl', 'Drama', 'Romance'),
+      m('Knight of the Seven Kingdoms', 'Fantasy', 'Drama'),
+      m('Welcome to Wrexham', 'Documentary', 'Sports', 'Comedy'),
+      m('Dune: Prophecy', 'Sci-Fi', 'Drama'),
+      m('Emily in Paris', 'Romance', 'Comedy'),
+      m('Percy Jackson', 'Fantasy', 'Adventure', 'Family'),
+      m('Lioness', 'Drama', 'Action', 'Thriller'),
+      m('The OC', 'Drama', 'Romance'),
+      m('Derry Girls', 'Comedy'),
     ],
   },
   movies: {
     label: 'Best Movies',
-    tabLabel: 'Movies',
     type: 'movie',
     items: [
-      'Interstellar',
-      'Troy',
-      'Happy Gilmore',
-      'Wolf of Wall street',
-      'Gladiator',
-      'Pulp fiction',
-      'Shashank Redemption',
-      'Top Gun',
-      'Goodwill hunting',
-      'Inception',
-      'Inglorious Bastards',
-      'The notebook',
-      'Borat',
-      'The 300',
-      'Caddyshack',
-      'Zero Dark Thirty',
-      'Oppenheimer',
-      'Ford vs Ferrari',
-      'Top Gun Maverick',
-      'Moneyball',
-      'Draft day',
-      'Hacksaw ridge',
-      'The town',
-      'The legend of bagger vance',
-      'Seven',
-      'Miracle',
-      'Any given sunday',
-      'Air',
-      'F1 movie',
-      'Point Break',
-      'Once upon a time in hollywood',
-      'Happy Gilmore 2',
-      'Borat 2',
-      'Snatch',
-      'Senna',
-      'Blood Diamond',
-      "He's just not that into you",
-      'The Boys in the Boat',
-      'Pearl Harbor',
-      'Fight Club',
-      'The big short',
-      'Hoosiers',
-      'Mr. and Mrs. Smith',
-      '10 things I hate about you',
-      "White men can't jump",
-      'Hitch',
-      'Dictator',
-      'Gladiator 2',
-      'The Gentlemen',
-      'Percy Jackson',
-      'Dodgeball',
+      m('Interstellar', 'Sci-Fi', 'Drama', 'Epic'),
+      m('Troy', 'Action', 'Historical', 'Epic', 'Drama'),
+      m('Happy Gilmore', 'Comedy', 'Sports'),
+      m('Wolf of Wall street', 'Drama', 'Biopic', 'Crime'),
+      m('Gladiator', 'Action', 'Historical', 'Epic', 'Drama'),
+      m('Pulp fiction', 'Crime', 'Drama', 'Thriller'),
+      m('Shashank Redemption', 'Drama', 'Crime'),
+      m('Top Gun', 'Action', 'Drama'),
+      m('Goodwill hunting', 'Drama'),
+      m('Inception', 'Sci-Fi', 'Action', 'Thriller'),
+      m('Inglorious Bastards', 'War', 'Action', 'Drama'),
+      m('The notebook', 'Romance', 'Drama'),
+      m('Borat', 'Comedy'),
+      m('The 300', 'Action', 'Historical', 'War', 'Epic'),
+      m('Caddyshack', 'Comedy', 'Sports'),
+      m('Zero Dark Thirty', 'Drama', 'Thriller', 'War', 'Historical'),
+      m('Oppenheimer', 'Drama', 'Biopic', 'Historical'),
+      m('Ford vs Ferrari', 'Drama', 'Sports', 'Biopic'),
+      m('Top Gun Maverick', 'Action', 'Drama'),
+      m('Moneyball', 'Drama', 'Sports', 'Biopic'),
+      m('Draft day', 'Drama', 'Sports'),
+      m('Hacksaw ridge', 'War', 'Drama', 'Biopic'),
+      m('The town', 'Crime', 'Drama', 'Action'),
+      m('The legend of bagger vance', 'Drama', 'Sports'),
+      m('Seven', 'Thriller', 'Crime', 'Mystery'),
+      m('Miracle', 'Drama', 'Sports', 'Biopic'),
+      m('Any given sunday', 'Drama', 'Sports'),
+      m('Air', 'Drama', 'Sports', 'Biopic'),
+      m('F1 movie', 'Action', 'Drama', 'Sports'),
+      m('Point Break', 'Action', 'Crime'),
+      m('Once upon a time in hollywood', 'Drama', 'Comedy'),
+      m('Happy Gilmore 2', 'Comedy', 'Sports'),
+      m('Borat 2', 'Comedy'),
+      m('Snatch', 'Crime', 'Comedy', 'Action'),
+      m('Senna', 'Documentary', 'Sports', 'Biopic'),
+      m('Blood Diamond', 'Drama', 'Thriller', 'Action'),
+      m("He's just not that into you", 'Romance', 'Comedy'),
+      m('The Boys in the Boat', 'Drama', 'Sports', 'Historical'),
+      m('Pearl Harbor', 'War', 'Drama', 'Romance', 'Historical'),
+      m('Fight Club', 'Drama', 'Thriller'),
+      m('The big short', 'Drama', 'Comedy', 'Biopic'),
+      m('Hoosiers', 'Drama', 'Sports'),
+      m('Mr. and Mrs. Smith', 'Action', 'Comedy', 'Romance'),
+      m('10 things I hate about you', 'Romance', 'Comedy'),
+      m("White men can't jump", 'Comedy', 'Sports'),
+      m('Hitch', 'Romance', 'Comedy'),
+      m('Dictator', 'Comedy'),
+      m('Gladiator 2', 'Action', 'Historical', 'Epic', 'Drama'),
+      m('The Gentlemen', 'Crime', 'Comedy', 'Action'),
+      m('Percy Jackson', 'Fantasy', 'Adventure', 'Family'),
+      m('Dodgeball', 'Comedy', 'Sports'),
     ],
   },
   movieSeries: {
     label: 'Best Movie Series',
-    tabLabel: 'Movie Series',
     type: 'movie',
     items: [
-      'Star wars',
-      'James bond',
-      'Jason Bourne',
-      'The dark knight',
-      'Oceans 11',
-      'Avengers',
-      'Harry Potter series',
-      'Dune series',
-      'Hunger games series',
-      'Lord of the Rings',
-      'Indiana Jones',
-      'Rocky series',
-      'Pirates of the caribbean',
-      'Knives out',
-      'Maze runner series',
-      'Enola Holmes',
-      'Twisters',
+      m('Star wars', 'Sci-Fi', 'Action', 'Adventure'),
+      m('James bond', 'Action', 'Thriller'),
+      m('Jason Bourne', 'Action', 'Thriller'),
+      m('The dark knight', 'Action', 'Crime', 'Drama'),
+      m('Oceans 11', 'Crime', 'Comedy'),
+      m('Avengers', 'Action', 'Sci-Fi'),
+      m('Harry Potter series', 'Fantasy', 'Adventure', 'Family'),
+      m('Dune series', 'Sci-Fi', 'Epic', 'Drama'),
+      m('Hunger games series', 'Sci-Fi', 'Action', 'Dystopian'),
+      m('Lord of the Rings', 'Fantasy', 'Epic', 'Adventure'),
+      m('Indiana Jones', 'Action', 'Adventure'),
+      m('Rocky series', 'Drama', 'Sports'),
+      m('Pirates of the caribbean', 'Adventure', 'Action', 'Fantasy'),
+      m('Knives out', 'Mystery', 'Comedy', 'Crime'),
+      m('Maze runner series', 'Sci-Fi', 'Action', 'Dystopian'),
+      m('Enola Holmes', 'Mystery', 'Adventure'),
     ],
   },
   booksToRead: {
     label: 'Books — Want to Read',
-    tabLabel: 'Books — Watchlist',
     type: 'book',
     watchlist: true,
     items: [
-      'Second Mistborn trilogy',
-      'Eragon again (been too many years)',
-      'Wildzone (September 2026 release — new Percy Jackson book)',
+      m('Second Mistborn trilogy', 'Fantasy', 'Epic'),
+      m('Eragon again (been too many years)', 'Fantasy', 'Adventure'),
+      m('Wildzone (September 2026 release — new Percy Jackson book)', 'Fantasy', 'Adventure', 'Mythology'),
     ],
   },
   tvToWatch: {
     label: 'TV — Want to Watch',
-    tabLabel: 'TV — Watchlist',
     type: 'tv',
     watchlist: true,
     items: [
-      'Sherlock',
-      'Friday night lights',
-      'Andor',
-      'Star wars – Maul',
-      'Dutton ranch',
-      'Marshals',
+      m('Sherlock', 'Mystery', 'Crime', 'Drama'),
+      m('Friday night lights', 'Drama', 'Sports'),
+      m('Andor', 'Sci-Fi', 'Drama', 'Action'),
+      m('Star wars – Maul', 'Sci-Fi', 'Action', 'Animated'),
+      m('Dutton ranch', 'Drama', 'Western'),
+      m('Marshals', 'Action', 'Crime', 'Drama'),
     ],
   },
   moviesToWatch: {
     label: 'Movies — Want to Watch',
-    tabLabel: 'Movies — Watchlist',
     type: 'movie',
     watchlist: true,
     items: [
-      'The last duel',
-      'The good the bad the ugly',
-      'Project Hail mary',
-      'Rocky series',
-      'Odyssey',
-      'Hoop dreams',
-      'Raging bull',
-      'Brokeback mountain',
-      'Send Help',
-      'Eternity',
-      'Mandalorian and grogu',
+      m('The last duel', 'Drama', 'Historical'),
+      m('The good the bad the ugly', 'Western', 'Action'),
+      m('Project Hail mary', 'Sci-Fi', 'Adventure'),
+      m('Rocky series', 'Drama', 'Sports'),
+      m('Odyssey', 'Drama', 'Epic'),
+      m('Hoop dreams', 'Documentary', 'Sports'),
+      m('Raging bull', 'Drama', 'Sports', 'Biopic'),
+      m('Brokeback mountain', 'Drama', 'Romance'),
+      m('Send Help', 'Comedy'),
+      m('Eternity', 'Drama', 'Romance'),
+      m('Mandalorian and grogu', 'Sci-Fi', 'Action', 'Adventure'),
+      m('Twisters', 'Action', 'Drama'),
     ],
   },
 };
+
+// ─── TABS (4 main; each may pull in a watchlist subsection) ───────────────
+const TABS = [
+  { key: 'books',       label: 'Books',        sections: ['bookSeries', 'booksToRead'] },
+  { key: 'tv',          label: 'TV Series',    sections: ['tvSeries',  'tvToWatch'] },
+  { key: 'movies',      label: 'Movies',       sections: ['movies',    'moviesToWatch'] },
+  { key: 'movieSeries', label: 'Movie Series', sections: ['movieSeries'] },
+];
 
 // Manual search-term overrides
 const SEARCH_OVERRIDES = {
@@ -777,8 +743,10 @@ const SEARCH_OVERRIDES = {
   'tv:Percy Jackson': 'Percy Jackson and the Olympians',
   'Happy Gilmore': 'Happy Gilmore 1996',
   'Wolf of Wall street': 'The Wolf of Wall Street (2013 film)',
-  'Gladiator': 'Gladiator II',
+  'Gladiator': 'Gladiator (2000 film)',
   'Gladiator 2': 'Gladiator II',
+  'James bond': 'Casino Royale (2006 film)',
+  'Dune series': 'Dune (2021 film)',
   'Snatch': 'Snatch 2000 film',
   'Hoosiers': 'Hoosiers film',
   'Hitch': 'Hitch 2005 film',
@@ -795,11 +763,9 @@ const SEARCH_OVERRIDES = {
   'Maze runner': 'The Maze Runner',
   'Maze runner series': 'The Maze Runner',
   'Oceans 11': "Ocean's Eleven",
-  'James bond': 'James Bond',
   'Jason Bourne': 'The Bourne Identity',
   'The dark knight': 'The Dark Knight',
   'Star wars': 'Star Wars',
-  'Dune series': 'Dune',
   'Hunger games series': 'The Hunger Games',
   'Harry Potter series': "Harry Potter and the Sorcerer's Stone",
   'Lord of the Rings': 'The Lord of the Rings The Fellowship of the Ring',
@@ -934,7 +900,7 @@ async function runWithLimit(items, fn, limit = 6) {
 }
 
 // ─── RENDER ───────────────────────────────────────────────────────────────
-const SECTION_ORDER = ['bookSeries', 'tvSeries', 'movies', 'movieSeries', 'booksToRead', 'tvToWatch', 'moviesToWatch'];
+const SECTION_KEYS = ['bookSeries', 'tvSeries', 'movies', 'movieSeries', 'booksToRead', 'tvToWatch', 'moviesToWatch'];
 const SECTION_IDS = {
   bookSeries: 'book-series',
   tvSeries: 'tv-series',
@@ -965,16 +931,28 @@ function buildCardEl(item, idx, type, isWatchlist) {
   const badge = badgeClass(idx, isWatchlist);
   const card = document.createElement('div');
   card.className = 'card' + (tier ? ' ' + tier : '');
-  card.dataset.title = item.toLowerCase();
+  card.dataset.title = item.title.toLowerCase();
+  card.dataset.tags = item.tags.map(t => t.toLowerCase()).join('|');
 
   const inner = document.createElement('div');
   if (tier) inner.className = 'inner';
+  const host = tier ? inner : card;
 
+  // Title block ABOVE the poster
+  const titleStrip = document.createElement('div');
+  let stripClass = 'title-strip';
+  if (item.title.length > 48) stripClass += ' very-long';
+  else if (item.title.length > 26) stripClass += ' long';
+  titleStrip.className = stripClass;
+  titleStrip.textContent = item.title;
+  host.appendChild(titleStrip);
+
+  // Cover
   const cover = document.createElement('div');
   cover.className = 'cover';
   const placeholder = document.createElement('div');
   placeholder.className = 'placeholder';
-  placeholder.textContent = item.length > 32 ? item.slice(0, 30).toUpperCase() + '…' : item.toUpperCase();
+  placeholder.textContent = item.title.length > 32 ? item.title.slice(0, 30).toUpperCase() + '…' : item.title.toUpperCase();
   cover.appendChild(placeholder);
 
   const badgeEl = document.createElement('div');
@@ -982,54 +960,12 @@ function buildCardEl(item, idx, type, isWatchlist) {
   badgeEl.textContent = (idx + 1);
   cover.appendChild(badgeEl);
 
-  const titleOverlay = document.createElement('div');
-  titleOverlay.className = 'title-overlay' + (item.length > 28 ? ' long' : '');
-  titleOverlay.textContent = item;
-  cover.appendChild(titleOverlay);
-
-  if (tier) {
-    inner.appendChild(cover);
-    card.appendChild(inner);
-  } else {
-    card.appendChild(cover);
-  }
+  host.appendChild(cover);
+  if (tier) card.appendChild(inner);
 
   card.addEventListener('click', () => openModal(item, type, card._coverUrl));
-  return { card, cover, placeholder };
+  return { card, cover, placeholder, item };
 }
-
-// ─── ZIGZAG / ROADMAP LAYOUT ──────────────────────────────────────────────
-function colsForViewport() {
-  const w = window.innerWidth;
-  if (w >= 1280) return 5;
-  if (w >= 960) return 4;
-  if (w >= 640) return 3;
-  return 2;
-}
-
-function applyZigzag(grid) {
-  const cols = colsForViewport();
-  grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-  const stagger = Math.max(14, Math.min(28, Math.round(window.innerWidth / 80)));
-  const cards = [...grid.children];
-  cards.forEach((card, idx) => {
-    const row = Math.floor(idx / cols);
-    const colInRow = idx % cols;
-    const visualCol = row % 2 === 0 ? colInRow : (cols - 1 - colInRow);
-    card.style.gridColumn = (visualCol + 1) + '';
-    card.style.gridRow = (row + 1) + '';
-    card.style.marginTop = (colInRow * stagger) + 'px';
-  });
-}
-
-let _zigzagTimer = null;
-function applyZigzagAll() {
-  document.querySelectorAll('.grid').forEach(applyZigzag);
-}
-window.addEventListener('resize', () => {
-  clearTimeout(_zigzagTimer);
-  _zigzagTimer = setTimeout(applyZigzagAll, 120);
-});
 
 function buildSection(key) {
   const sec = DATA[key];
@@ -1073,21 +1009,18 @@ function attachIntersection(cards) {
 
 async function loadCovers(section) {
   await runWithLimit(section.builtCards, async (built, i) => {
-    const item = DATA[section.key].items[i];
+    const item = built.item;
     const type = DATA[section.key].type;
-    const url = await lookupCover(type, item);
+    const url = await lookupCover(type, item.title);
     if (url) {
       built.card._coverUrl = url;
       const img = new Image();
-      img.alt = item;
+      img.alt = item.title;
       img.onload = () => {
-        // re-build cover preserving badge + title overlay
         const existingBadge = built.cover.querySelector('.rank-badge');
-        const existingTitle = built.cover.querySelector('.title-overlay');
         built.cover.innerHTML = '';
         built.cover.appendChild(img);
         if (existingBadge) built.cover.appendChild(existingBadge);
-        if (existingTitle) built.cover.appendChild(existingTitle);
       };
       img.onerror = () => {};
       img.src = url;
@@ -1095,31 +1028,135 @@ async function loadCovers(section) {
   }, 6);
 }
 
+// ─── ZIGZAG / ROADMAP LAYOUT ──────────────────────────────────────────────
+function colsForViewport() {
+  const w = window.innerWidth;
+  if (w >= 1280) return 5;
+  if (w >= 960) return 4;
+  if (w >= 640) return 3;
+  return 2;
+}
+
+function applyZigzag(grid) {
+  const cols = colsForViewport();
+  grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+  const stagger = Math.max(14, Math.min(28, Math.round(window.innerWidth / 80)));
+  // Only consider visible (not filter-hidden) cards for layout
+  const visibleCards = [...grid.children].filter(c => !c.classList.contains('hidden-by-filter'));
+  // Reset positions on hidden cards
+  [...grid.children].forEach(c => {
+    if (c.classList.contains('hidden-by-filter')) {
+      c.style.gridColumn = ''; c.style.gridRow = ''; c.style.marginTop = '';
+    }
+  });
+  visibleCards.forEach((card, idx) => {
+    const row = Math.floor(idx / cols);
+    const colInRow = idx % cols;
+    const visualCol = row % 2 === 0 ? colInRow : (cols - 1 - colInRow);
+    card.style.gridColumn = (visualCol + 1) + '';
+    card.style.gridRow = (row + 1) + '';
+    card.style.marginTop = (colInRow * stagger) + 'px';
+  });
+}
+
+let _zigzagTimer = null;
+function applyZigzagAll() {
+  document.querySelectorAll('.grid').forEach(applyZigzag);
+}
+window.addEventListener('resize', () => {
+  clearTimeout(_zigzagTimer);
+  _zigzagTimer = setTimeout(applyZigzagAll, 120);
+});
+
+// ─── FILTER (multi-select genre chips) ────────────────────────────────────
+const activeFilters = new Set();
+const chipsEl = document.getElementById('filter-chips');
+const clearBtn = document.getElementById('clear-filters');
+
+function tagsForActiveTab(tabKey) {
+  const tabDef = TABS.find(t => t.key === tabKey);
+  if (!tabDef) return [];
+  const tagSet = new Set();
+  tabDef.sections.forEach(sk => {
+    DATA[sk].items.forEach(it => it.tags.forEach(t => tagSet.add(t)));
+  });
+  return [...tagSet].sort((a,b) => a.localeCompare(b));
+}
+
+function rebuildFilterChips(tabKey) {
+  chipsEl.innerHTML = '';
+  activeFilters.clear();
+  updateClearBtnVisibility();
+  const tags = tagsForActiveTab(tabKey);
+  tags.forEach(tag => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.dataset.tag = tag.toLowerCase();
+    chip.textContent = tag;
+    chip.addEventListener('click', () => {
+      if (activeFilters.has(chip.dataset.tag)) {
+        activeFilters.delete(chip.dataset.tag);
+        chip.classList.remove('active');
+      } else {
+        activeFilters.add(chip.dataset.tag);
+        chip.classList.add('active');
+      }
+      updateClearBtnVisibility();
+      applyFilter();
+    });
+    chipsEl.appendChild(chip);
+  });
+}
+
+function updateClearBtnVisibility() {
+  clearBtn.classList.toggle('visible', activeFilters.size > 0);
+}
+
+clearBtn.addEventListener('click', () => {
+  activeFilters.clear();
+  chipsEl.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  updateClearBtnVisibility();
+  applyFilter();
+});
+
+function applyFilter() {
+  document.querySelectorAll('section.list.active .card').forEach(card => {
+    if (activeFilters.size === 0) {
+      card.classList.remove('hidden-by-filter');
+    } else {
+      const cardTags = (card.dataset.tags || '').split('|');
+      const matches = cardTags.some(t => activeFilters.has(t));
+      card.classList.toggle('hidden-by-filter', !matches);
+    }
+  });
+  applyZigzagAll();
+}
+
 // ─── TABS ─────────────────────────────────────────────────────────────────
-function buildTabs(sections) {
+function buildTabs() {
   const tabsEl = document.getElementById('tabs');
-  sections.forEach((s, idx) => {
-    const sec = DATA[s.key];
+  TABS.forEach((tabDef) => {
+    const totalItems = tabDef.sections.reduce((sum, sk) => sum + DATA[sk].items.length, 0);
     const tab = document.createElement('button');
     tab.className = 'tab';
-    tab.dataset.key = s.key;
-    tab.innerHTML = `${sec.tabLabel}<span class="count">${sec.items.length}</span>`;
-    tab.addEventListener('click', () => activateTab(s.key));
+    tab.dataset.key = tabDef.key;
+    tab.innerHTML = `${tabDef.label}<span class="count">${totalItems}</span>`;
+    tab.addEventListener('click', () => activateTab(tabDef.key));
     tabsEl.appendChild(tab);
   });
 }
 
 function activateTab(key) {
+  const tabDef = TABS.find(t => t.key === key);
+  if (!tabDef) return;
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.key === key));
-  document.querySelectorAll('section.list').forEach(s => s.classList.toggle('active', s.dataset.key === key));
-  // Reset search filter
-  const inp = document.getElementById('search');
-  inp.value = '';
-  document.querySelectorAll('.card').forEach(c => c.style.display = '');
-  // Scroll into view
+  document.querySelectorAll('section.list').forEach(s => {
+    s.classList.toggle('active', tabDef.sections.includes(s.dataset.key));
+  });
+  rebuildFilterChips(key);
+  applyZigzagAll();
   window.scrollTo({ top: document.querySelector('.tabs-wrap').offsetTop - 20, behavior: 'smooth' });
-  // update URL hash
-  history.replaceState(null, '', '#' + SECTION_IDS[key]);
+  history.replaceState(null, '', '#' + key);
 }
 
 // ─── MODAL ────────────────────────────────────────────────────────────────
@@ -1127,69 +1164,57 @@ const modal = document.getElementById('modal');
 const modalCover = document.getElementById('modal-cover');
 const modalTitle = document.getElementById('modal-title');
 const modalMeta  = document.getElementById('modal-meta');
+const modalTags  = document.getElementById('modal-tags');
 const modalLink  = document.getElementById('modal-link');
 document.getElementById('modal-close').addEventListener('click', closeModal);
 modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
-function openModal(title, type, coverUrl) {
+function openModal(item, type, coverUrl) {
   modalCover.innerHTML = '';
   if (coverUrl) {
     const img = document.createElement('img');
     img.src = coverUrl;
-    img.alt = title;
+    img.alt = item.title;
     modalCover.appendChild(img);
   } else {
     const ph = document.createElement('div');
     ph.className = 'placeholder';
-    ph.textContent = title.toUpperCase();
+    ph.textContent = item.title.toUpperCase();
     modalCover.appendChild(ph);
   }
-  modalTitle.textContent = title;
+  modalTitle.textContent = item.title;
   modalMeta.textContent = type.toUpperCase();
-  modalLink.href = 'https://www.google.com/search?q=' + encodeURIComponent(title + ' ' + type);
+  modalTags.innerHTML = '';
+  item.tags.forEach(t => {
+    const tagEl = document.createElement('span');
+    tagEl.className = 'modal-tag';
+    tagEl.textContent = t;
+    modalTags.appendChild(tagEl);
+  });
+  modalLink.href = 'https://www.google.com/search?q=' + encodeURIComponent(item.title + ' ' + type);
   modal.classList.add('open');
 }
 function closeModal() { modal.classList.remove('open'); }
 
-// ─── SEARCH FILTER (within active tab) ────────────────────────────────────
-const searchInput = document.getElementById('search');
-searchInput.addEventListener('input', () => {
-  const q = searchInput.value.trim().toLowerCase();
-  const activeSec = document.querySelector('section.list.active');
-  if (!activeSec) return;
-  activeSec.querySelectorAll('.card').forEach(c => {
-    if (!q) c.style.display = '';
-    else c.style.display = c.dataset.title.includes(q) ? '' : 'none';
-  });
-});
-
-// ─── REFRESH ──────────────────────────────────────────────────────────────
-document.getElementById('refresh').addEventListener('click', () => {
-  if (!confirm('Clear cached covers and re-fetch?')) return;
-  Object.keys(localStorage).filter(k => k.startsWith(CACHE_PREFIX)).forEach(k => localStorage.removeItem(k));
-  location.reload();
-});
-
 // ─── BOOT ─────────────────────────────────────────────────────────────────
 (function init() {
-  // Force re-fetch for entries whose cached cover was wrong
-  ['movie:Wolf of Wall street', 'movie:Gladiator', 'movie:Gladiator 2'].forEach(k => {
+  // Force re-fetch for entries whose cached cover was wrong / outdated
+  ['movie:Wolf of Wall street', 'movie:Gladiator', 'movie:Gladiator 2', 'movie:James bond', 'movie:Dune series'].forEach(k => {
     try { localStorage.removeItem(CACHE_PREFIX + k); } catch(e){}
   });
 
   const main = document.getElementById('main');
-  const sections = SECTION_ORDER.map(buildSection);
+  const sections = SECTION_KEYS.map(buildSection);
   sections.forEach(s => main.appendChild(s.el));
-  buildTabs(sections);
+  buildTabs();
   attachIntersection(sections.flatMap(s => s.builtCards));
   applyZigzagAll();
   sections.forEach(loadCovers);
 
-  // Activate tab from URL hash or default
   const hash = (location.hash || '').replace('#','');
-  const fromHash = SECTION_ORDER.find(k => SECTION_IDS[k] === hash);
-  activateTab(fromHash || 'bookSeries');
+  const validHash = TABS.find(t => t.key === hash);
+  activateTab(validHash ? validHash.key : 'books');
 })();
 </script>
 </body>
