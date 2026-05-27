@@ -3,431 +3,550 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Aidan's Rankings // Books · TV · Movies</title>
+<title>Aidan's Recommendations · Books · TV · Movies</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #05060f;
-    --bg-2: #0a0d24;
-    --cyan: #00e5ff;
-    --magenta: #ff00d4;
-    --violet: #a855f7;
-    --text: #e8ecff;
-    --muted: #8b91b8;
-    --card: rgba(20, 24, 56, 0.45);
-    --card-border: rgba(0, 229, 255, 0.18);
+    --bg: #eef0f4;
+    --bg-soft: #e3e6ed;
+    --marble-1: #f7f6f1;
+    --marble-2: #dcd9d2;
+    --marble-vein: rgba(120,128,140,0.18);
+    --ink: #2a2823;
+    --ink-soft: #6a6760;
+    --muted: #9a978f;
+    --gold: #c9a24c;
+    --gold-2: #e8c87b;
+    --gold-deep: #8e6a23;
+    --silver: #b6b6b9;
+    --silver-2: #e2e2e6;
+    --silver-deep: #6e6e74;
+    --bronze: #b46a3a;
+    --bronze-2: #d9966a;
+    --bronze-deep: #6b3a18;
+    --accent: #4a5a6a;
+    --line: rgba(58,62,72,0.18);
+    --card-bg: rgba(255,255,255,0.55);
+    --card-border: rgba(58,62,72,0.14);
+    --shadow-soft: 0 12px 30px rgba(40,44,52,0.10), 0 2px 8px rgba(40,44,52,0.06);
+    --shadow-strong: 0 28px 60px rgba(40,44,52,0.18), 0 8px 20px rgba(40,44,52,0.10);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  html, body { color: var(--ink); font-family: 'Cormorant Garamond', Georgia, serif; min-height: 100vh; overflow-x: hidden; }
+  body {
+    background:
+      radial-gradient(ellipse 90% 70% at 30% 0%, #ffffff 0%, transparent 55%),
+      radial-gradient(ellipse 70% 50% at 80% 100%, #d8dbe2 0%, transparent 60%),
+      linear-gradient(180deg, #eef0f4 0%, #d9dce3 100%);
+    background-attachment: fixed;
+  }
+
+  /* Marble veins overlay */
   body::before {
     content: '';
     position: fixed; inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(0,229,255,0.18), transparent 60%),
-      radial-gradient(ellipse 70% 50% at 80% 30%, rgba(255,0,212,0.15), transparent 60%),
-      radial-gradient(ellipse 60% 60% at 50% 100%, rgba(168,85,247,0.18), transparent 60%);
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='1200' viewBox='0 0 1200 1200'><defs><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='2' seed='9'/><feColorMatrix values='0 0 0 0 0.45  0 0 0 0 0.48  0 0 0 0 0.52  0 0 0 0.18 0'/></filter></defs><rect width='1200' height='1200' filter='url(%23n)'/></svg>");
+    background-size: 800px 800px;
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+    pointer-events: none;
     z-index: -2;
-    animation: bg-drift 22s ease-in-out infinite alternate;
   }
+  /* Pillars silhouette */
   body::after {
     content: '';
-    position: fixed; inset: 0;
-    background-image:
-      linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
-    z-index: -1;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 220px;
+    background:
+      linear-gradient(180deg, transparent, rgba(80,86,96,0.10)),
+      repeating-linear-gradient(90deg,
+        transparent 0px,
+        transparent 80px,
+        rgba(120,128,140,0.10) 80px,
+        rgba(120,128,140,0.10) 84px,
+        transparent 84px,
+        transparent 164px,
+        rgba(120,128,140,0.06) 164px,
+        rgba(120,128,140,0.06) 256px
+      );
+    mask-image: linear-gradient(180deg, transparent 0%, black 80%);
     pointer-events: none;
-  }
-  @keyframes bg-drift {
-    0% { transform: translate(0,0) scale(1); }
-    100% { transform: translate(-3%,2%) scale(1.05); }
+    z-index: -1;
+    opacity: 0.55;
   }
 
-  /* NAV */
-  nav.topbar {
-    position: sticky; top: 0; z-index: 50;
-    backdrop-filter: blur(18px) saturate(160%);
-    -webkit-backdrop-filter: blur(18px) saturate(160%);
-    background: rgba(5,6,15,0.6);
-    border-bottom: 1px solid rgba(0,229,255,0.18);
-    padding: 14px 28px;
-    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  /* ─── HEADER ───────────────────────────────────────────────────────── */
+  header.hero {
+    text-align: center;
+    padding: 70px 24px 30px;
+    position: relative;
   }
-  .brand {
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 900;
-    font-size: 18px;
+  header.hero .brand-mark {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    letter-spacing: 6px;
+    color: var(--ink-soft);
+    font-size: 11px;
+    margin-bottom: 18px;
+    padding: 6px 18px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.4);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  header.hero h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: clamp(38px, 6vw, 76px);
     letter-spacing: 4px;
-    background: linear-gradient(90deg, var(--cyan), var(--magenta));
+    line-height: 1.05;
+    color: var(--ink);
+    background: linear-gradient(180deg, #3a3a3a 0%, #6f6f6f 60%, #4a4a4a 100%);
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent;
-    text-shadow: 0 0 18px rgba(0,229,255,0.4);
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 20px rgba(255,255,255,0.6);
   }
-  .brand span { color: var(--muted); -webkit-text-fill-color: var(--muted); font-weight: 500; letter-spacing: 2px; margin-left: 10px; }
-  .nav-links { display: flex; gap: 4px; flex-wrap: wrap; flex: 1; justify-content: center; }
-  .nav-links a {
-    font-family: 'Orbitron', sans-serif;
+  header.hero h1 em {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
     font-weight: 500;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--muted);
-    text-decoration: none;
-    padding: 8px 14px;
-    border-radius: 999px;
-    transition: all .25s ease;
-    border: 1px solid transparent;
+    background: linear-gradient(180deg, #8e6a23 0%, #c9a24c 50%, #8e6a23 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
-  .nav-links a:hover { color: var(--cyan); border-color: rgba(0,229,255,0.35); background: rgba(0,229,255,0.06); text-shadow: 0 0 12px rgba(0,229,255,0.6); }
+  header.hero .subhead {
+    margin-top: 22px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(16px, 1.6vw, 20px);
+    color: var(--ink-soft);
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+  }
+  header.hero .subhead .arrow {
+    color: var(--gold-deep);
+    margin: 0 6px;
+  }
+  header.hero .laurel {
+    width: 180px;
+    height: 28px;
+    margin: 28px auto 0;
+    position: relative;
+  }
+  header.hero .laurel::before, header.hero .laurel::after {
+    content: '⚜';
+    position: absolute;
+    top: 0; font-size: 18px;
+    color: var(--gold-deep);
+    opacity: 0.7;
+  }
+  header.hero .laurel::before { left: 50%; transform: translateX(-50%); }
+  header.hero .laurel > .line { position: absolute; top: 50%; height: 1px; width: 60px;
+    background: linear-gradient(90deg, transparent, var(--gold-deep), transparent); }
+  header.hero .laurel > .line.left { left: 0; }
+  header.hero .laurel > .line.right { right: 0; }
+
+  /* ─── TABS ─────────────────────────────────────────────────────────── */
+  .tabs-wrap {
+    display: flex; justify-content: center; flex-wrap: wrap;
+    gap: 10px;
+    padding: 0 24px;
+    margin: 36px auto 8px;
+    max-width: 1100px;
+  }
+  .tab {
+    font-family: 'Cinzel', serif;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: linear-gradient(180deg, #fafafa 0%, #e8e7e2 100%);
+    border: 1px solid var(--line);
+    padding: 12px 22px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .25s cubic-bezier(.2,.8,.2,1);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.8),
+      0 2px 6px rgba(40,44,52,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+  .tab::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.5) 50%, transparent 60%);
+    transform: translateX(-100%);
+    transition: transform .6s;
+  }
+  .tab:hover::before { transform: translateX(100%); }
+  .tab:hover {
+    color: var(--ink);
+    border-color: var(--gold-deep);
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.9),
+      0 6px 14px rgba(40,44,52,0.12);
+  }
+  .tab.active {
+    color: #fff;
+    background: linear-gradient(180deg, #4a4a4a 0%, #2a2823 100%);
+    border-color: var(--gold-deep);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.15),
+      0 4px 14px rgba(40,44,52,0.25);
+  }
+  .tab .count {
+    display: inline-block;
+    margin-left: 8px;
+    font-size: 10px;
+    color: var(--gold-deep);
+    font-weight: 700;
+  }
+  .tab.active .count { color: var(--gold-2); }
+
+  /* Search row */
+  .util-row {
+    display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+    padding: 0 24px;
+    margin: 14px auto 0;
+    max-width: 1100px;
+  }
   .search-wrap { position: relative; }
   .search-wrap input {
-    background: rgba(20,24,56,0.6);
-    border: 1px solid rgba(0,229,255,0.25);
-    color: var(--text);
-    padding: 9px 14px 9px 36px;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    padding: 10px 18px 10px 40px;
     border-radius: 999px;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    width: 220px;
-    transition: all .2s;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    width: 260px;
     outline: none;
+    transition: all .2s;
+    box-shadow: inset 0 1px 3px rgba(40,44,52,0.05);
   }
-  .search-wrap input:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(0,229,255,0.15); width: 260px; }
+  .search-wrap input:focus { border-color: var(--gold-deep); background: #fff; width: 320px; }
   .search-wrap::before {
-    content: '⌕'; position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-    color: var(--cyan); font-size: 16px; pointer-events: none;
+    content: '⌕'; position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+    color: var(--ink-soft); font-size: 18px; pointer-events: none;
   }
   .refresh-btn {
     background: transparent;
-    border: 1px solid rgba(255,0,212,0.35);
-    color: var(--magenta);
-    padding: 8px 14px;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    padding: 9px 18px;
     border-radius: 999px;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Cinzel', serif;
     font-size: 10px;
     letter-spacing: 2px;
     cursor: pointer;
     transition: all .2s;
   }
-  .refresh-btn:hover { background: rgba(255,0,212,0.1); box-shadow: 0 0 16px rgba(255,0,212,0.4); }
+  .refresh-btn:hover { color: var(--ink); border-color: var(--gold-deep); }
 
-  /* HERO */
-  header.hero {
+  /* ─── SECTION ──────────────────────────────────────────────────────── */
+  main { max-width: 1400px; margin: 0 auto; padding: 50px 32px 80px; }
+  section.list { display: none; }
+  section.list.active { display: block; animation: section-fade .6s ease; }
+  @keyframes section-fade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  .section-head {
     text-align: center;
-    padding: 80px 24px 60px;
+    margin-bottom: 50px;
   }
-  header.hero h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 900;
-    font-size: clamp(36px, 6vw, 72px);
-    letter-spacing: 6px;
-    line-height: 1.05;
-    background: linear-gradient(120deg, #ffffff 0%, var(--cyan) 40%, var(--magenta) 70%, var(--violet) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    filter: drop-shadow(0 0 28px rgba(0,229,255,0.3));
-  }
-  header.hero p {
-    margin-top: 18px;
-    color: var(--muted);
-    font-size: 14px;
-    letter-spacing: 2px;
+  .section-head .eyebrow {
+    font-family: 'Cinzel', serif;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: var(--gold-deep);
     text-transform: uppercase;
   }
-  .hero-line {
-    width: 220px; height: 2px;
-    margin: 28px auto 0;
-    background: linear-gradient(90deg, transparent, var(--cyan), var(--magenta), transparent);
-    box-shadow: 0 0 14px var(--cyan);
-  }
-
-  /* SECTIONS */
-  section.list {
-    padding: 60px 32px 40px;
-    max-width: 1480px;
-    margin: 0 auto;
-  }
-  .section-head {
-    display: flex; align-items: baseline; gap: 18px; margin-bottom: 32px; flex-wrap: wrap;
-  }
-  .section-num {
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    font-size: 12px;
-    color: var(--cyan);
-    letter-spacing: 3px;
-    border: 1px solid rgba(0,229,255,0.35);
-    padding: 4px 10px;
-    border-radius: 4px;
-    text-shadow: 0 0 8px rgba(0,229,255,0.6);
-  }
   .section-head h2 {
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    font-size: clamp(22px, 3vw, 34px);
-    letter-spacing: 4px;
-    color: var(--text);
-  }
-  .section-head .count {
-    color: var(--muted);
-    font-size: 12px;
-    letter-spacing: 2px;
-    font-family: 'Orbitron', sans-serif;
-  }
-  .section-head .underline {
-    flex-basis: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, var(--cyan), transparent);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: clamp(28px, 4vw, 44px);
+    letter-spacing: 3px;
+    color: var(--ink);
     margin-top: 8px;
+    background: linear-gradient(180deg, #3a3a3a 0%, #6f6f6f 70%, #4a4a4a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
-  .watchlist .section-num { color: var(--magenta); border-color: rgba(255,0,212,0.4); text-shadow: 0 0 8px rgba(255,0,212,0.6); }
-  .watchlist .section-head .underline { background: linear-gradient(90deg, var(--magenta), transparent); }
+  .section-head .divider {
+    width: 240px;
+    height: 1px;
+    margin: 22px auto 0;
+    background: linear-gradient(90deg, transparent, var(--gold-deep), transparent);
+    position: relative;
+  }
+  .section-head .divider::after {
+    content: '◆';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--bg);
+    color: var(--gold-deep);
+    font-size: 10px;
+    padding: 0 12px;
+  }
 
-  /* GRID */
+  /* ─── GRID + CARDS ─────────────────────────────────────────────────── */
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 22px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 28px;
   }
 
-  /* CARD */
   .card {
     position: relative;
-    background: var(--card);
+    background: linear-gradient(180deg, #fcfbf8 0%, #ebe9e2 100%);
     border: 1px solid var(--card-border);
-    border-radius: 14px;
+    border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
+    box-shadow: var(--shadow-soft);
     transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(18px);
   }
   .card.in-view { opacity: 1; transform: translateY(0); transition: opacity .6s, transform .6s; }
   .card:hover {
-    transform: translateY(-8px) scale(1.03);
-    box-shadow:
-      0 20px 50px rgba(0,0,0,0.6),
-      0 0 0 1px rgba(0,229,255,0.5),
-      0 0 28px rgba(0,229,255,0.35),
-      0 0 60px rgba(255,0,212,0.18);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: var(--shadow-strong);
   }
   .card .cover {
     width: 100%;
     aspect-ratio: 2/3;
-    background: linear-gradient(135deg, #131838 0%, #1c1247 100%);
+    background:
+      linear-gradient(135deg, #f1efe8 0%, #d8d4ca 100%);
     display: flex; align-items: center; justify-content: center;
     position: relative;
     overflow: hidden;
   }
-  .card.book .cover { aspect-ratio: 2/3; }
-  .card .cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s; }
-  .card:hover .cover img { transform: scale(1.06); }
+  .card .cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s; }
+  .card:hover .cover img { transform: scale(1.05); }
   .card .placeholder {
     text-align: center;
     padding: 16px;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Cinzel', serif;
     font-size: 13px;
     letter-spacing: 2px;
-    color: var(--cyan);
-    text-shadow: 0 0 10px rgba(0,229,255,0.5);
+    color: var(--ink-soft);
     background:
-      radial-gradient(circle at 30% 30%, rgba(0,229,255,0.18), transparent 60%),
-      radial-gradient(circle at 70% 80%, rgba(255,0,212,0.18), transparent 60%),
-      #0a0d24;
+      radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), transparent 60%),
+      radial-gradient(circle at 70% 80%, rgba(120,128,140,0.1), transparent 60%),
+      linear-gradient(180deg, #f3f1ea, #d8d4ca);
     width: 100%; height: 100%;
     display: flex; align-items: center; justify-content: center;
   }
-  .rank-badge {
-    position: absolute; top: 10px; left: 10px; z-index: 2;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 900;
-    font-size: 13px;
-    color: #fff;
-    background: rgba(5,6,15,0.75);
-    border: 1px solid var(--cyan);
-    padding: 5px 10px;
-    border-radius: 6px;
-    letter-spacing: 1px;
-    text-shadow: 0 0 8px var(--cyan);
-    box-shadow: 0 0 12px rgba(0,229,255,0.4);
-    backdrop-filter: blur(6px);
-  }
-  .watchlist .rank-badge { border-color: var(--magenta); text-shadow: 0 0 8px var(--magenta); box-shadow: 0 0 12px rgba(255,0,212,0.4); }
   .card .meta {
-    padding: 14px 14px 16px;
-    border-top: 1px solid rgba(0,229,255,0.1);
+    padding: 16px 16px 18px;
+    border-top: 1px solid rgba(58,62,72,0.08);
+    background: linear-gradient(180deg, #fafaf6 0%, #efece5 100%);
   }
   .card .title {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Cinzel', serif;
     font-weight: 500;
-    font-size: 12.5px;
-    letter-spacing: 1px;
-    color: var(--text);
-    line-height: 1.35;
+    font-size: 13.5px;
+    letter-spacing: 1.5px;
+    color: var(--ink);
+    line-height: 1.4;
+    text-align: center;
   }
 
-  /* #1 card – animated border */
-  .card.top {
-    border: none;
-    padding: 2px;
-    background: linear-gradient(135deg, var(--cyan), var(--magenta), var(--violet), var(--cyan));
-    background-size: 300% 300%;
-    animation: top-border 5s ease-in-out infinite;
+  /* Rank badge - circular */
+  .rank-badge {
+    position: absolute; top: 12px; left: 12px; z-index: 3;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--ink);
+    background: radial-gradient(circle at 35% 30%, #ffffff 0%, #e7e5dd 60%, #c8c5bb 100%);
+    border: 1px solid rgba(58,62,72,0.18);
+    box-shadow:
+      inset 0 1px 2px rgba(255,255,255,0.9),
+      inset 0 -2px 4px rgba(0,0,0,0.10),
+      0 4px 10px rgba(40,44,52,0.18);
+    text-shadow: 0 1px 0 rgba(255,255,255,0.6);
   }
-  .card.top > .inner {
-    background: #0a0d24;
-    border-radius: 12px;
-    overflow: hidden;
+  .rank-badge.gold {
+    color: #5a3e10;
+    background: radial-gradient(circle at 35% 25%, #fff4c4 0%, #e8c87b 35%, #c9a24c 70%, #8e6a23 100%);
+    border: 1px solid #8e6a23;
+    box-shadow:
+      inset 0 2px 3px rgba(255,255,255,0.85),
+      inset 0 -3px 5px rgba(80,55,10,0.45),
+      0 6px 14px rgba(180,140,40,0.45),
+      0 0 22px rgba(232,200,123,0.35);
   }
-  .card.top .rank-badge {
-    background: linear-gradient(135deg, var(--cyan), var(--magenta));
-    border: none;
-    color: #05060f;
-    text-shadow: none;
-    box-shadow: 0 0 18px rgba(255,0,212,0.6);
+  .rank-badge.silver {
+    color: #383838;
+    background: radial-gradient(circle at 35% 25%, #ffffff 0%, #e2e2e6 35%, #b6b6b9 70%, #6e6e74 100%);
+    border: 1px solid #6e6e74;
+    box-shadow:
+      inset 0 2px 3px rgba(255,255,255,0.95),
+      inset 0 -3px 5px rgba(50,50,60,0.45),
+      0 6px 14px rgba(120,120,130,0.45),
+      0 0 22px rgba(226,226,230,0.4);
   }
-  @keyframes top-border {
-    0%,100% { background-position: 0% 50%; }
+  .rank-badge.bronze {
+    color: #3c1d05;
+    background: radial-gradient(circle at 35% 25%, #ffe2c8 0%, #d9966a 35%, #b46a3a 70%, #6b3a18 100%);
+    border: 1px solid #6b3a18;
+    box-shadow:
+      inset 0 2px 3px rgba(255,235,210,0.85),
+      inset 0 -3px 5px rgba(60,30,5,0.45),
+      0 6px 14px rgba(160,100,55,0.45),
+      0 0 22px rgba(217,150,106,0.35);
+  }
+
+  /* Top 3 card framing */
+  .card.tier-1, .card.tier-2, .card.tier-3 { padding: 3px; border: none; }
+  .card.tier-1 { background: linear-gradient(135deg, #fff4c4 0%, #c9a24c 35%, #8e6a23 65%, #e8c87b 100%); background-size: 200% 200%; animation: shine 6s ease-in-out infinite; }
+  .card.tier-2 { background: linear-gradient(135deg, #ffffff 0%, #b6b6b9 35%, #6e6e74 65%, #e2e2e6 100%); background-size: 200% 200%; animation: shine 6s ease-in-out infinite; }
+  .card.tier-3 { background: linear-gradient(135deg, #ffe2c8 0%, #b46a3a 35%, #6b3a18 65%, #d9966a 100%); background-size: 200% 200%; animation: shine 6s ease-in-out infinite; }
+  @keyframes shine {
+    0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
   }
+  .card.tier-1 > .inner, .card.tier-2 > .inner, .card.tier-3 > .inner {
+    background: linear-gradient(180deg, #fcfbf8 0%, #ebe9e2 100%);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .card.tier-1 { box-shadow: 0 14px 36px rgba(180,140,40,0.30), var(--shadow-soft); }
+  .card.tier-2 { box-shadow: 0 14px 36px rgba(120,120,130,0.30), var(--shadow-soft); }
+  .card.tier-3 { box-shadow: 0 14px 36px rgba(160,100,55,0.30), var(--shadow-soft); }
+  .card.tier-1:hover { box-shadow: 0 22px 50px rgba(180,140,40,0.42), var(--shadow-strong); }
+  .card.tier-2:hover { box-shadow: 0 22px 50px rgba(120,120,130,0.42), var(--shadow-strong); }
+  .card.tier-3:hover { box-shadow: 0 22px 50px rgba(160,100,55,0.42), var(--shadow-strong); }
 
-  /* MODAL */
+  /* ─── MODAL ────────────────────────────────────────────────────────── */
   .modal-wrap {
     position: fixed; inset: 0; z-index: 100;
-    background: rgba(5,6,15,0.85);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(40,44,52,0.55);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
     display: none;
     align-items: center; justify-content: center;
     padding: 32px;
-    animation: fade-in .25s ease;
   }
-  .modal-wrap.open { display: flex; }
+  .modal-wrap.open { display: flex; animation: fade-in .25s ease; }
   @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
   .modal {
-    background: linear-gradient(135deg, #0a0d24 0%, #131447 100%);
-    border: 1px solid rgba(0,229,255,0.4);
-    border-radius: 18px;
-    padding: 32px;
-    max-width: 640px;
+    background: linear-gradient(180deg, #fcfbf8 0%, #ebe9e2 100%);
+    border: 1px solid var(--gold-deep);
+    border-radius: 12px;
+    padding: 36px;
+    max-width: 540px;
     width: 100%;
-    box-shadow:
-      0 0 0 1px rgba(255,0,212,0.2),
-      0 30px 80px rgba(0,0,0,0.8),
-      0 0 60px rgba(0,229,255,0.2);
     text-align: center;
     position: relative;
+    box-shadow: var(--shadow-strong), 0 0 0 1px rgba(201,162,76,0.2);
     animation: modal-up .35s cubic-bezier(.2,.8,.2,1);
   }
   @keyframes modal-up { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-  .modal img { max-height: 60vh; max-width: 100%; border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
-  .modal .placeholder { width: 280px; height: 420px; margin: 0 auto; border-radius: 8px; }
+  .modal img { max-height: 56vh; max-width: 100%; border-radius: 6px; box-shadow: var(--shadow-strong); }
+  .modal .placeholder { width: 260px; height: 390px; margin: 0 auto; border-radius: 6px; }
   .modal h3 {
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
     letter-spacing: 3px;
-    margin-top: 22px;
-    font-size: 18px;
-    background: linear-gradient(90deg, var(--cyan), var(--magenta));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    margin-top: 24px;
+    font-size: 20px;
+    color: var(--ink);
   }
   .modal .modal-meta {
-    color: var(--muted);
-    font-size: 11px;
-    margin-top: 6px;
-    letter-spacing: 2px;
+    color: var(--gold-deep);
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    margin-top: 8px;
+    letter-spacing: 3px;
     text-transform: uppercase;
   }
   .modal .modal-link {
     display: inline-block;
-    margin-top: 18px;
-    padding: 10px 22px;
-    border: 1px solid var(--cyan);
-    border-radius: 999px;
-    color: var(--cyan);
+    margin-top: 22px;
+    padding: 10px 26px;
+    border: 1px solid var(--ink);
+    border-radius: 4px;
+    color: var(--ink);
     text-decoration: none;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Cinzel', serif;
     font-size: 11px;
     letter-spacing: 2px;
     transition: all .2s;
+    background: linear-gradient(180deg, #fff 0%, #ebe9e2 100%);
   }
-  .modal .modal-link:hover { background: rgba(0,229,255,0.1); box-shadow: 0 0 16px rgba(0,229,255,0.4); }
+  .modal .modal-link:hover { background: var(--ink); color: #fff; }
   .modal .close {
-    position: absolute; top: 14px; right: 18px;
-    background: transparent; border: none; color: var(--muted);
-    font-size: 28px; cursor: pointer; line-height: 1;
+    position: absolute; top: 12px; right: 16px;
+    background: transparent; border: none; color: var(--ink-soft);
+    font-size: 30px; cursor: pointer; line-height: 1;
     transition: color .2s;
   }
-  .modal .close:hover { color: var(--magenta); }
+  .modal .close:hover { color: var(--ink); }
 
-  /* FOOTER */
+  /* ─── FOOTER ───────────────────────────────────────────────────────── */
   footer {
     text-align: center;
-    padding: 60px 24px 40px;
+    padding: 30px 24px 50px;
     color: var(--muted);
-    font-size: 11px;
-    letter-spacing: 3px;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: 1px;
   }
-  footer .pulse { display: inline-block; width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 12px var(--cyan); margin: 0 8px; animation: pulse 1.6s ease-in-out infinite; }
-  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
-
-  /* SCAN LINE */
-  .scanline {
-    position: fixed; left: 0; right: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-    opacity: 0.4;
-    pointer-events: none;
-    z-index: 30;
-    animation: scan 9s linear infinite;
-  }
-  @keyframes scan {
-    0% { top: -2%; }
-    100% { top: 102%; }
+  footer .ornament {
+    margin: 0 12px;
+    color: var(--gold-deep);
   }
 
   @media (max-width: 600px) {
-    .grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 14px; }
-    .nav-links { order: 3; flex-basis: 100%; justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; }
-    .nav-links::-webkit-scrollbar { display: none; }
-    section.list { padding: 40px 16px; }
-    header.hero { padding: 50px 16px 30px; }
-    .search-wrap input { width: 160px; }
-    .search-wrap input:focus { width: 180px; }
+    .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+    main { padding: 30px 16px 50px; }
+    header.hero { padding: 50px 16px 20px; }
+    .search-wrap input { width: 180px; }
+    .search-wrap input:focus { width: 220px; }
+    .tab { padding: 10px 16px; font-size: 11px; letter-spacing: 2px; }
+    .rank-badge { width: 38px; height: 38px; font-size: 13px; }
   }
 </style>
 </head>
 <body>
 
-<div class="scanline"></div>
-
-<nav class="topbar">
-  <div class="brand">AIDAN.RANK<span>// v2026</span></div>
-  <div class="nav-links">
-    <a href="#book-series">BOOKS</a>
-    <a href="#tv-series">TV</a>
-    <a href="#movies">MOVIES</a>
-    <a href="#movie-series">SAGAS</a>
-    <a href="#watchlist">WATCHLIST</a>
-  </div>
-  <div class="search-wrap"><input id="search" type="text" placeholder="Filter…" /></div>
-  <button class="refresh-btn" id="refresh" title="Re-fetch cover art">↻ COVERS</button>
-</nav>
-
 <header class="hero">
-  <h1>PERSONAL ARCHIVES</h1>
-  <p>BOOKS · TV · MOVIES · RANKED</p>
-  <div class="hero-line"></div>
+  <div class="brand-mark">★ ANNO MMXXVI ★</div>
+  <h1>Aidan's <em>Recommendations</em></h1>
+  <p class="subhead">A personal archive of the finest in literature, television, and cinema. <br/><span class="arrow">⌃</span> Choose a category below to explore my rankings <span class="arrow">⌃</span></p>
+  <div class="laurel">
+    <span class="line left"></span>
+    <span class="line right"></span>
+  </div>
 </header>
+
+<div class="tabs-wrap" id="tabs"></div>
+
+<div class="util-row">
+  <div class="search-wrap"><input id="search" type="text" placeholder="Search within category…" /></div>
+  <button class="refresh-btn" id="refresh" title="Re-fetch cover art">↻ REFRESH COVERS</button>
+</div>
 
 <main id="main"></main>
 
@@ -437,19 +556,20 @@
     <div id="modal-cover"></div>
     <h3 id="modal-title"></h3>
     <div class="modal-meta" id="modal-meta"></div>
-    <a id="modal-link" class="modal-link" target="_blank" rel="noopener">SEARCH ON GOOGLE →</a>
+    <a id="modal-link" class="modal-link" target="_blank" rel="noopener">Search on Google →</a>
   </div>
 </div>
 
 <footer>
-  <span class="pulse"></span> SIGNAL ACTIVE <span class="pulse"></span>
+  <span class="ornament">❦</span> Curated with care <span class="ornament">❦</span>
 </footer>
 
 <script>
 // ─── DATA (exact order from Word doc) ─────────────────────────────────────
 const DATA = {
   bookSeries: {
-    label: 'Best Book Series of All Time',
+    label: 'Best Book Series',
+    tabLabel: 'Books',
     type: 'book',
     items: [
       'Eragon + Murtagh',
@@ -466,7 +586,8 @@ const DATA = {
     ],
   },
   tvSeries: {
-    label: 'Best TV Series of All Time',
+    label: 'Best TV Series',
+    tabLabel: 'TV Series',
     type: 'tv',
     items: [
       'Game of thrones',
@@ -501,7 +622,8 @@ const DATA = {
     ],
   },
   movies: {
-    label: 'Best Movies of All Time',
+    label: 'Best Movies',
+    tabLabel: 'Movies',
     type: 'movie',
     items: [
       'Interstellar',
@@ -559,6 +681,7 @@ const DATA = {
   },
   movieSeries: {
     label: 'Best Movie Series',
+    tabLabel: 'Movie Series',
     type: 'movie',
     items: [
       'Star wars',
@@ -581,7 +704,8 @@ const DATA = {
     ],
   },
   booksToRead: {
-    label: 'Books — Want to Read / Re-read',
+    label: 'Books — Want to Read',
+    tabLabel: 'Books — Watchlist',
     type: 'book',
     watchlist: true,
     items: [
@@ -592,6 +716,7 @@ const DATA = {
   },
   tvToWatch: {
     label: 'TV — Want to Watch',
+    tabLabel: 'TV — Watchlist',
     type: 'tv',
     watchlist: true,
     items: [
@@ -605,6 +730,7 @@ const DATA = {
   },
   moviesToWatch: {
     label: 'Movies — Want to Watch',
+    tabLabel: 'Movies — Watchlist',
     type: 'movie',
     watchlist: true,
     items: [
@@ -623,7 +749,7 @@ const DATA = {
   },
 };
 
-// Manual search-term overrides where doc spelling won't match the API
+// Manual search-term overrides
 const SEARCH_OVERRIDES = {
   'Shashank Redemption': 'The Shawshank Redemption',
   'Goodwill hunting': 'Good Will Hunting',
@@ -652,16 +778,10 @@ const SEARCH_OVERRIDES = {
   'Send Help': 'Send Help film',
   'Odyssey': 'The Odyssey Nolan film',
   'The notebook': 'The Notebook',
-  'Wolf of Wall street': 'The Wolf of Wall Street',
-  'The 300': '300',
-  'Star wars – Maul': 'Star Wars Maul',
-  'Dutton ranch': 'The Dutton Ranch',
   'Curb your enthusiasm': 'Curb Your Enthusiasm',
-  'Queens gambit': "The Queen's Gambit",
   'The Queens gambit': "The Queen's Gambit",
   'Clone wars': 'Star Wars The Clone Wars',
   'House of Dragon': 'House of the Dragon',
-  'Welcome to Wrexham': 'Welcome to Wrexham',
   'Vampire Diaries': 'The Vampire Diaries',
   'The OC': 'The O.C.',
   'Maze runner': 'The Maze Runner',
@@ -697,38 +817,22 @@ const SEARCH_OVERRIDES = {
   'Project Hail mary': 'Project Hail Mary Andy Weir',
   'The Boys in the Boat': 'Boys in the Boat',
   'The legend of bagger vance': 'The Legend of Bagger Vance',
-  'White men can\'t jump': "White Men Can't Jump",
+  "White men can't jump": "White Men Can't Jump",
   'Mr. and Mrs. Smith': 'Mr. and Mrs. Smith',
-  'Borat 2': 'Borat Subsequent Moviefilm',
   'Happy Gilmore 2': 'Happy Gilmore 2',
   'Once upon a time in hollywood': 'Once Upon a Time in Hollywood',
   'Dictator': 'The Dictator',
   'The town': 'The Town',
   'Seven': 'Se7en',
-  'Air': 'Air Ben Affleck',
-  'Senna': 'Senna 2010',
-  'Eternity': 'Eternity 2024',
-  'Send Help': 'Send Help',
-  'Mandalorian and grogu': 'The Mandalorian',
-  'Odyssey': 'The Odyssey Christopher Nolan',
-  'Pearl Harbor': 'Pearl Harbor 2001',
-  'Twisters': 'Twisters 2024',
   'Lioness': 'Special Ops Lioness',
 };
 
 // ─── COVER FETCH ──────────────────────────────────────────────────────────
 const CACHE_PREFIX = 'cover:v2:';
 function cacheKey(type, title) { return CACHE_PREFIX + type + ':' + title; }
+function getCached(type, title) { try { return localStorage.getItem(cacheKey(type, title)); } catch(e) { return null; } }
+function setCached(type, title, url) { try { localStorage.setItem(cacheKey(type, title), url || 'NONE'); } catch(e){} }
 
-function getCached(type, title) {
-  try { return localStorage.getItem(cacheKey(type, title)); }
-  catch(e) { return null; }
-}
-function setCached(type, title, url) {
-  try { localStorage.setItem(cacheKey(type, title), url || 'NONE'); } catch(e){}
-}
-
-// TV via TVMaze (CORS-enabled, no key)
 async function fetchTV(term) {
   try {
     const r = await fetch(`https://api.tvmaze.com/singlesearch/shows?q=${encodeURIComponent(term)}`);
@@ -738,10 +842,8 @@ async function fetchTV(term) {
   } catch(e) { return null; }
 }
 
-// Movies via Wikipedia search + REST summary (CORS-enabled, no key)
 async function fetchMovie(term) {
   try {
-    // Step 1: try direct REST summary with "(film)" suffix
     const directGuesses = [
       term.replace(/ /g,'_') + '_(film)',
       term.replace(/ /g,'_'),
@@ -754,7 +856,6 @@ async function fetchMovie(term) {
       const img = (j.originalimage && j.originalimage.source) || (j.thumbnail && j.thumbnail.source);
       if (img && /\.(jpe?g|png|gif|webp)$/i.test(img)) return img;
     }
-    // Step 2: search and walk top 4 results
     const sr = await fetch(`https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${encodeURIComponent(term + ' film')}&srlimit=4&origin=*`);
     const sj = await sr.json();
     if (!sj.query || !sj.query.search.length) return null;
@@ -810,8 +911,7 @@ async function lookupCover(type, title) {
   return url;
 }
 
-// Concurrency limiter
-async function runWithLimit(items, fn, limit = 8) {
+async function runWithLimit(items, fn, limit = 6) {
   const results = new Array(items.length);
   let idx = 0;
   async function worker() {
@@ -832,35 +932,47 @@ const SECTION_IDS = {
   tvSeries: 'tv-series',
   movies: 'movies',
   movieSeries: 'movie-series',
-  booksToRead: 'watchlist',
+  booksToRead: 'books-watchlist',
   tvToWatch: 'tv-watchlist',
   moviesToWatch: 'movies-watchlist',
 };
 
+function tierClass(idx, isWatchlist) {
+  if (isWatchlist) return '';
+  if (idx === 0) return 'tier-1';
+  if (idx === 1) return 'tier-2';
+  if (idx === 2) return 'tier-3';
+  return '';
+}
+function badgeClass(idx, isWatchlist) {
+  if (isWatchlist) return '';
+  if (idx === 0) return 'gold';
+  if (idx === 1) return 'silver';
+  if (idx === 2) return 'bronze';
+  return '';
+}
+
 function buildCardEl(item, idx, type, isWatchlist) {
-  const isTop = idx === 0 && !isWatchlist;
+  const tier = tierClass(idx, isWatchlist);
+  const badge = badgeClass(idx, isWatchlist);
   const card = document.createElement('div');
-  card.className = 'card' + (type === 'book' ? ' book' : '') + (isTop ? ' top' : '');
+  card.className = 'card' + (tier ? ' ' + tier : '');
   card.dataset.title = item.toLowerCase();
 
   const inner = document.createElement('div');
-  inner.className = 'inner';
-  if (!isTop) {
-    inner.style.all = 'unset';
-    inner.style.display = 'contents';
-  }
+  if (tier) inner.className = 'inner';
 
   const cover = document.createElement('div');
   cover.className = 'cover';
   const placeholder = document.createElement('div');
   placeholder.className = 'placeholder';
-  placeholder.textContent = item.length > 30 ? item.slice(0, 28).toUpperCase() + '…' : item.toUpperCase();
+  placeholder.textContent = item.length > 32 ? item.slice(0, 30).toUpperCase() + '…' : item.toUpperCase();
   cover.appendChild(placeholder);
 
-  const badge = document.createElement('div');
-  badge.className = 'rank-badge';
-  badge.textContent = '#' + (idx + 1);
-  cover.appendChild(badge);
+  const badgeEl = document.createElement('div');
+  badgeEl.className = 'rank-badge' + (badge ? ' ' + badge : '');
+  badgeEl.textContent = (idx + 1);
+  cover.appendChild(badgeEl);
 
   const meta = document.createElement('div');
   meta.className = 'meta';
@@ -869,7 +981,7 @@ function buildCardEl(item, idx, type, isWatchlist) {
   title.textContent = item;
   meta.appendChild(title);
 
-  if (isTop) {
+  if (tier) {
     inner.appendChild(cover);
     inner.appendChild(meta);
     card.appendChild(inner);
@@ -885,16 +997,16 @@ function buildCardEl(item, idx, type, isWatchlist) {
 function buildSection(key) {
   const sec = DATA[key];
   const el = document.createElement('section');
-  el.className = 'list' + (sec.watchlist ? ' watchlist' : '');
+  el.className = 'list';
   el.id = SECTION_IDS[key];
+  el.dataset.key = key;
 
   const head = document.createElement('div');
   head.className = 'section-head';
   head.innerHTML = `
-    <span class="section-num">${String(SECTION_ORDER.indexOf(key)+1).padStart(2,'0')}</span>
+    <div class="eyebrow">${sec.watchlist ? 'On the Horizon' : 'Ranked Best to Worst'}</div>
     <h2>${sec.label}</h2>
-    <span class="count">${sec.items.length} ENTRIES</span>
-    <div class="underline"></div>
+    <div class="divider"></div>
   `;
   el.appendChild(head);
 
@@ -932,17 +1044,43 @@ async function loadCovers(section) {
       const img = new Image();
       img.alt = item;
       img.onload = () => {
+        // re-build cover preserving the badge
+        const existingBadge = built.cover.querySelector('.rank-badge');
         built.cover.innerHTML = '';
-        const badge = document.createElement('div');
-        badge.className = 'rank-badge';
-        badge.textContent = '#' + (i + 1);
         built.cover.appendChild(img);
-        built.cover.appendChild(badge);
+        if (existingBadge) built.cover.appendChild(existingBadge);
       };
       img.onerror = () => {};
       img.src = url;
     }
   }, 6);
+}
+
+// ─── TABS ─────────────────────────────────────────────────────────────────
+function buildTabs(sections) {
+  const tabsEl = document.getElementById('tabs');
+  sections.forEach((s, idx) => {
+    const sec = DATA[s.key];
+    const tab = document.createElement('button');
+    tab.className = 'tab';
+    tab.dataset.key = s.key;
+    tab.innerHTML = `${sec.tabLabel}<span class="count">${sec.items.length}</span>`;
+    tab.addEventListener('click', () => activateTab(s.key));
+    tabsEl.appendChild(tab);
+  });
+}
+
+function activateTab(key) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.key === key));
+  document.querySelectorAll('section.list').forEach(s => s.classList.toggle('active', s.dataset.key === key));
+  // Reset search filter
+  const inp = document.getElementById('search');
+  inp.value = '';
+  document.querySelectorAll('.card').forEach(c => c.style.display = '');
+  // Scroll into view
+  window.scrollTo({ top: document.querySelector('.tabs-wrap').offsetTop - 20, behavior: 'smooth' });
+  // update URL hash
+  history.replaceState(null, '', '#' + SECTION_IDS[key]);
 }
 
 // ─── MODAL ────────────────────────────────────────────────────────────────
@@ -975,11 +1113,13 @@ function openModal(title, type, coverUrl) {
 }
 function closeModal() { modal.classList.remove('open'); }
 
-// ─── SEARCH FILTER ────────────────────────────────────────────────────────
+// ─── SEARCH FILTER (within active tab) ────────────────────────────────────
 const searchInput = document.getElementById('search');
 searchInput.addEventListener('input', () => {
   const q = searchInput.value.trim().toLowerCase();
-  document.querySelectorAll('.card').forEach(c => {
+  const activeSec = document.querySelector('section.list.active');
+  if (!activeSec) return;
+  activeSec.querySelectorAll('.card').forEach(c => {
     if (!q) c.style.display = '';
     else c.style.display = c.dataset.title.includes(q) ? '' : 'none';
   });
@@ -997,9 +1137,14 @@ document.getElementById('refresh').addEventListener('click', () => {
   const main = document.getElementById('main');
   const sections = SECTION_ORDER.map(buildSection);
   sections.forEach(s => main.appendChild(s.el));
+  buildTabs(sections);
   attachIntersection(sections.flatMap(s => s.builtCards));
-  // Fire cover loads (parallel across sections, limited inside)
   sections.forEach(loadCovers);
+
+  // Activate tab from URL hash or default
+  const hash = (location.hash || '').replace('#','');
+  const fromHash = SECTION_ORDER.find(k => SECTION_IDS[k] === hash);
+  activateTab(fromHash || 'bookSeries');
 })();
 </script>
 </body>
