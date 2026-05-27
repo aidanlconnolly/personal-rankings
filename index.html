@@ -168,8 +168,8 @@
     font-family: 'Playfair Display', serif;
     font-style: italic;
     font-weight: 700;
-    color: #ffe9a8;
-    background: linear-gradient(180deg, #fff4c4 0%, #ffe19a 45%, #f3cb6e 100%);
+    color: #fff7d8;
+    background: linear-gradient(180deg, #ffffff 0%, #fff7d8 50%, #ffe9a8 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -482,11 +482,11 @@
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 2px 6px rgba(142,106,35,0.5);
   }
 
-  /* "My Saved" button — floating top-right of the hero, over the curtain */
+  /* "My Saved" button — positioned right side, about an inch below the title */
   .saved-fab {
     position: absolute;
-    top: 24px;
-    right: 24px;
+    top: 240px;
+    right: 32px;
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -533,7 +533,7 @@
   }
   .saved-fab.active .count { background: rgba(255,255,255,0.25); }
   @media (max-width: 720px) {
-    .saved-fab { top: 14px; right: 14px; padding: 8px 12px; font-size: 9.5px; letter-spacing: 1.5px; gap: 5px; }
+    .saved-fab { top: 180px; right: 14px; padding: 8px 12px; font-size: 9.5px; letter-spacing: 1.5px; gap: 5px; }
     .saved-fab .star { font-size: 12px; }
     .saved-fab .count { font-size: 9px; padding: 1px 6px; }
   }
@@ -562,7 +562,8 @@
     font-family: 'EB Garamond', serif;
     font-style: italic;
     font-size: 18px;
-    padding: 80px 24px;
+    padding: 140px 24px 700px;
+    min-height: 90vh;
   }
   section.saved-view .saved-empty .hint {
     margin-top: 10px;
@@ -1578,6 +1579,18 @@ function rebuildSubtabs(tabDef, activeSubIdx) {
   });
 }
 
+// Flag — first activateTab on page load shouldn't auto-scroll
+let isInitialActivate = true;
+
+function scrollPastNav() {
+  // Scroll so the tabs row is just out of view at the top — this guarantees
+  // the curtains are fully faded (scroll fade ends at ~480px) and the user
+  // lands on the sub-tabs / filters / content.
+  const tabs = document.querySelector('.tabs-wrap');
+  const target = tabs.offsetTop + tabs.offsetHeight + 6;
+  window.scrollTo({ top: target, behavior: 'smooth' });
+}
+
 function activateTab(key, subIdx) {
   // ── Special: the "Saved" view is not in TABS; render its own view ──
   if (key === 'saved') {
@@ -1588,7 +1601,8 @@ function activateTab(key, subIdx) {
     document.getElementById('subtabs-wrap').classList.add('hidden');
     document.getElementById('filters-wrap').style.display = 'none';
     renderSavedView();
-    window.scrollTo({ top: document.querySelector('.tabs-wrap').offsetTop - 20, behavior: 'smooth' });
+    if (!isInitialActivate) scrollPastNav();
+    isInitialActivate = false;
     history.replaceState(null, '', '#saved');
     return;
   }
@@ -1610,7 +1624,8 @@ function activateTab(key, subIdx) {
   rebuildSubtabs(tabDef, subIdx);
   rebuildFilterChips(key, sectionKey);
   applyZigzagAll();
-  window.scrollTo({ top: document.querySelector('.tabs-wrap').offsetTop - 20, behavior: 'smooth' });
+  if (!isInitialActivate) scrollPastNav();
+  isInitialActivate = false;
   history.replaceState(null, '', '#' + key + (subIdx ? '/watch' : ''));
 }
 
