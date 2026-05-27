@@ -6,7 +6,7 @@
 <title>Aidan's Recommendations · Books · TV · Movies</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #eef0f4;
@@ -29,7 +29,7 @@
     --shadow-strong: 0 28px 60px rgba(40,44,52,0.18), 0 8px 20px rgba(40,44,52,0.10);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { color: var(--ink); font-family: 'Cormorant Garamond', Georgia, serif; min-height: 100vh; overflow-x: hidden; }
+  html, body { color: var(--ink); font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif; min-height: 100vh; overflow-x: hidden; }
   body {
     background:
       radial-gradient(ellipse 90% 70% at 30% 0%, #ffffff 0%, transparent 55%),
@@ -66,42 +66,125 @@
     opacity: 0.55;
   }
 
+  /* ─── THEATRE CURTAINS BACKDROP ─────────────────────────────────────── */
+  .curtain-bg {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 560px;
+    z-index: -1;
+    pointer-events: none;
+    transition: opacity .15s linear;
+    transform-origin: top center;
+  }
+  .curtain-bg .pelmet {
+    /* The valance / pelmet at the very top */
+    height: 70px;
+    background:
+      radial-gradient(ellipse 60% 100% at 50% 30%, #b51a26 0%, #7a0e18 70%, #44060c 100%),
+      linear-gradient(180deg, #44060c, #7a0e18 60%, #4a0810);
+    box-shadow:
+      inset 0 -8px 18px rgba(0,0,0,0.5),
+      0 6px 18px rgba(0,0,0,0.35);
+    border-bottom: 3px solid #2a0408;
+    position: relative;
+  }
+  .curtain-bg .pelmet::after {
+    /* hanging tassel ornaments */
+    content: '';
+    position: absolute;
+    bottom: -16px; left: 0; right: 0;
+    height: 18px;
+    background:
+      radial-gradient(circle 9px at 32px 0px, #d4af37 0%, #8e6a23 70%, transparent 72%),
+      radial-gradient(circle 9px at 32px 0px, #d4af37 0%, #8e6a23 70%, transparent 72%);
+    background-image:
+      repeating-radial-gradient(circle 9px at 32px 0px, #d4af37 0 6px, #8e6a23 6px 9px, transparent 9px);
+    background-size: 64px 18px;
+    background-repeat: repeat-x;
+    filter: drop-shadow(0 4px 4px rgba(0,0,0,0.4));
+  }
+  .curtain-bg .curtain {
+    position: absolute;
+    top: 70px;
+    width: 50%;
+    height: calc(100% - 70px);
+    background:
+      /* vertical pleats / folds with darker shadows for depth */
+      repeating-linear-gradient(90deg,
+        rgba(0,0,0,0.55) 0px,
+        rgba(0,0,0,0.0) 16px,
+        rgba(255,255,255,0.10) 30px,
+        rgba(0,0,0,0.0) 44px,
+        rgba(0,0,0,0.55) 60px),
+      linear-gradient(180deg, #6a050d 0%, #a01018 25%, #8a0c15 55%, #54050b 100%);
+    box-shadow: inset 0 -60px 100px rgba(0,0,0,0.55), inset 0 0 80px rgba(0,0,0,0.35);
+  }
+  .curtain-bg .curtain.left {
+    left: 0;
+    transform-origin: top right;
+    animation: curtain-sway-left 6s ease-in-out infinite;
+    border-right: 2px solid rgba(0,0,0,0.4);
+  }
+  .curtain-bg .curtain.right {
+    right: 0;
+    transform-origin: top left;
+    animation: curtain-sway-right 6.5s ease-in-out infinite;
+    border-left: 2px solid rgba(0,0,0,0.4);
+  }
+  .curtain-bg .center-shadow {
+    /* darker seam where curtains meet, behind the title text */
+    position: absolute;
+    top: 70px; left: 50%; transform: translateX(-50%);
+    width: 14%; height: calc(100% - 70px);
+    background: radial-gradient(ellipse 100% 80% at 50% 30%, rgba(0,0,0,0.45) 0%, transparent 70%);
+    z-index: 1;
+  }
+  @keyframes curtain-sway-left {
+    0%, 100% { transform: skewX(0deg) translateX(0); }
+    50%      { transform: skewX(0.6deg) translateX(-3px); }
+  }
+  @keyframes curtain-sway-right {
+    0%, 100% { transform: skewX(0deg) translateX(0); }
+    50%      { transform: skewX(-0.6deg) translateX(3px); }
+  }
+
   /* ─── HERO ──────────────────────────────────────────────────────────── */
-  header.hero { text-align: center; padding: 70px 24px 30px; }
+  header.hero { text-align: center; padding: 100px 24px 40px; position: relative; z-index: 1; }
   header.hero h1 {
-    font-family: 'Cinzel', serif;
-    font-weight: 700;
-    font-size: clamp(38px, 6vw, 76px);
-    letter-spacing: 4px;
-    line-height: 1.05;
-    color: var(--ink);
-    background: linear-gradient(180deg, #3a3a3a 0%, #6f6f6f 60%, #4a4a4a 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 2px 20px rgba(255,255,255,0.6);
+    font-family: 'Playfair Display', 'EB Garamond', Georgia, serif;
+    font-weight: 800;
+    font-size: clamp(36px, 5.5vw, 70px);
+    letter-spacing: 2px;
+    line-height: 1.1;
+    color: #fff7e2;
+    text-shadow:
+      0 2px 0 rgba(0,0,0,0.35),
+      0 6px 24px rgba(0,0,0,0.6),
+      0 0 40px rgba(212,175,55,0.35);
   }
   header.hero h1 em {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-weight: 500;
-    background: linear-gradient(180deg, #8e6a23 0%, #c9a24c 50%, #8e6a23 100%);
+    font-weight: 700;
+    color: #f3d985;
+    background: linear-gradient(180deg, #ffefb5 0%, #d4af37 50%, #8e6a23 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
   }
   header.hero .subhead {
     margin-top: 22px;
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'EB Garamond', 'Cormorant Garamond', serif;
     font-style: italic;
     font-size: clamp(16px, 1.6vw, 20px);
-    color: var(--ink-soft);
-    max-width: 620px;
+    color: #f4e8d0;
+    max-width: 640px;
     margin-left: auto;
     margin-right: auto;
     line-height: 1.5;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.55);
   }
-  header.hero .subhead .arrow { color: var(--gold-deep); margin: 0 6px; }
+  header.hero .subhead .arrow { color: #f3d985; margin: 0 6px; }
   header.hero .laurel {
     width: 180px; height: 28px;
     margin: 28px auto 0;
@@ -122,7 +205,7 @@
     max-width: 1100px;
   }
   .tab {
-    font-family: 'Cinzel', serif;
+    font-family: 'Playfair Display', 'EB Garamond', Georgia, serif;
     font-weight: 500;
     font-size: 12px;
     letter-spacing: 3px;
@@ -183,7 +266,7 @@
     box-shadow: inset 0 1px 2px rgba(40,44,52,0.06);
   }
   .subtab {
-    font-family: 'Cinzel', serif;
+    font-family: 'Playfair Display', 'EB Garamond', Georgia, serif;
     font-size: 10.5px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -212,7 +295,7 @@
     text-align: center;
   }
   .filters-label {
-    font-family: 'Cinzel', serif;
+    font-family: 'Playfair Display', 'EB Garamond', Georgia, serif;
     font-size: 10px;
     letter-spacing: 4px;
     color: var(--ink-soft);
@@ -224,7 +307,7 @@
     background: transparent;
     border: none;
     color: var(--gold-deep);
-    font-family: 'Cinzel', serif;
+    font-family: 'Playfair Display', 'EB Garamond', Georgia, serif;
     font-size: 10px;
     letter-spacing: 2px;
     cursor: pointer;
@@ -240,7 +323,7 @@
     margin: 0 auto;
   }
   .chip {
-    font-family: 'Cinzel', serif;
+    font-family: 'Playfair Display', 'EB Garamond', Georgia, serif;
     font-size: 10.5px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -275,7 +358,7 @@
 
   .section-head { text-align: center; margin-bottom: 40px; padding-top: 30px; }
   .section-head .eyebrow {
-    font-family: 'Cinzel', serif;
+    font-family: 'Playfair Display', 'EB Garamond', Georgia, serif;
     font-weight: 500;
     font-size: 11px;
     letter-spacing: 5px;
@@ -283,7 +366,7 @@
     text-transform: uppercase;
   }
   .section-head h2 {
-    font-family: 'Cinzel', serif;
+    font-family: 'Playfair Display', 'EB Garamond', Georgia, serif;
     font-weight: 600;
     font-size: clamp(28px, 4vw, 44px);
     letter-spacing: 3px;
@@ -342,8 +425,8 @@
     position: relative;
     background: linear-gradient(180deg, #2a2823 0%, #3a3530 100%);
     color: #ffffff;
-    padding: 16px 14px 16px 60px;
-    font-family: 'Cinzel', serif;
+    padding: 16px 40px 16px 60px;
+    font-family: 'Playfair Display', 'EB Garamond', Georgia, serif;
     font-weight: 500;
     font-size: 12.5px;
     letter-spacing: 1.5px;
@@ -354,8 +437,87 @@
     border-bottom: 2px solid var(--gold-deep);
     text-shadow: 0 1px 0 rgba(0,0,0,0.5);
   }
-  .card .title-strip.long { font-size: 10.5px; letter-spacing: 1px; min-height: 78px; padding: 14px 12px 14px 56px; }
-  .card .title-strip.very-long { font-size: 9.5px; letter-spacing: 0.5px; min-height: 92px; padding: 12px 10px 12px 52px; line-height: 1.35; }
+  .card .title-strip.long { font-size: 10.5px; letter-spacing: 1px; min-height: 78px; padding: 14px 38px 14px 56px; }
+  .card .title-strip.very-long { font-size: 9.5px; letter-spacing: 0.5px; min-height: 92px; padding: 12px 36px 12px 52px; line-height: 1.35; }
+
+  /* Save / bookmark button in the top-right of the title strip */
+  .save-btn {
+    position: absolute; top: 50%; right: 8px;
+    transform: translateY(-50%);
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.06);
+    color: #f4e8d0;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    line-height: 1;
+    transition: all .2s;
+    z-index: 4;
+    padding: 0;
+  }
+  .save-btn:hover {
+    background: rgba(212,175,55,0.18);
+    border-color: var(--gold-2);
+    color: var(--gold-2);
+    transform: translateY(-50%) scale(1.1);
+  }
+  .save-btn.saved {
+    background: linear-gradient(180deg, var(--gold-2) 0%, var(--gold-deep) 100%);
+    color: #2a1d05;
+    border-color: var(--gold-deep);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 2px 6px rgba(142,106,35,0.5);
+  }
+
+  /* Saved tab special styling */
+  .tab.saved-tab .count {
+    background: linear-gradient(180deg, var(--gold-2) 0%, var(--gold-deep) 100%);
+    color: #2a1d05;
+    padding: 2px 7px;
+    border-radius: 999px;
+    font-size: 9px;
+    margin-left: 8px;
+  }
+  .tab.saved-tab.active .count { background: rgba(255,255,255,0.2); color: #fff; }
+
+  /* Saved view sub-sections */
+  section.saved-view { padding-top: 30px; }
+  section.saved-view .saved-group { margin-bottom: 60px; }
+  section.saved-view .saved-group-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 28px;
+    color: var(--ink);
+    text-align: center;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  section.saved-view .saved-group-divider {
+    width: 180px; height: 1px;
+    margin: 8px auto 32px;
+    background: linear-gradient(90deg, transparent, var(--gold-deep), transparent);
+  }
+  section.saved-view .saved-empty {
+    text-align: center;
+    color: var(--ink-soft);
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    padding: 80px 24px;
+  }
+  section.saved-view .saved-empty .hint {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  section.saved-view .empty-group {
+    text-align: center;
+    color: var(--muted);
+    font-style: italic;
+    padding: 20px;
+  }
   .card .cover {
     width: 100%;
     aspect-ratio: 2/3;
@@ -369,7 +531,7 @@
   .card .placeholder {
     text-align: center;
     padding: 16px;
-    font-family: 'Cinzel', serif;
+    font-family: 'Playfair Display', 'EB Garamond', Georgia, serif;
     font-size: 13px;
     letter-spacing: 2px;
     color: var(--ink-soft);
@@ -389,7 +551,7 @@
     width: 38px; height: 38px;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Cinzel', serif;
+    font-family: 'Playfair Display', 'EB Garamond', Georgia, serif;
     font-weight: 700;
     font-size: 14px;
     color: var(--ink);
@@ -463,7 +625,7 @@
   .modal img { max-height: 56vh; max-width: 100%; border-radius: 6px; box-shadow: var(--shadow-strong); }
   .modal .placeholder { width: 260px; height: 390px; margin: 0 auto; border-radius: 6px; }
   .modal h3 {
-    font-family: 'Cinzel', serif;
+    font-family: 'Playfair Display', 'EB Garamond', Georgia, serif;
     font-weight: 600;
     letter-spacing: 3px;
     margin-top: 24px;
@@ -472,7 +634,7 @@
   }
   .modal .modal-meta {
     color: var(--gold-deep);
-    font-family: 'Cinzel', serif;
+    font-family: 'Playfair Display', 'EB Garamond', Georgia, serif;
     font-size: 10px;
     margin-top: 8px;
     letter-spacing: 3px;
@@ -483,7 +645,7 @@
     display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
   }
   .modal .modal-tag {
-    font-family: 'Cinzel', serif;
+    font-family: 'Playfair Display', 'EB Garamond', Georgia, serif;
     font-size: 9.5px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
@@ -501,7 +663,7 @@
     border-radius: 4px;
     color: var(--ink);
     text-decoration: none;
-    font-family: 'Cinzel', serif;
+    font-family: 'Playfair Display', 'EB Garamond', Georgia, serif;
     font-size: 11px;
     letter-spacing: 2px;
     transition: all .2s;
@@ -521,7 +683,7 @@
     text-align: center;
     padding: 30px 24px 50px;
     color: var(--muted);
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'EB Garamond', 'Cormorant Garamond', serif;
     font-style: italic;
     font-size: 14px;
     letter-spacing: 1px;
@@ -540,8 +702,15 @@
 </head>
 <body>
 
+<div class="curtain-bg" id="curtain-bg">
+  <div class="pelmet"></div>
+  <div class="curtain left"></div>
+  <div class="curtain right"></div>
+  <div class="center-shadow"></div>
+</div>
+
 <header class="hero">
-  <h1>Aidan's <em>Recommendations</em></h1>
+  <h1>Aidan's <em>TV and Book</em> Recommendations</h1>
   <p class="subhead">A personal archive of the finest in literature, television, and cinema. <br/><span class="arrow">⌃</span> Choose a category below to explore my rankings <span class="arrow">⌃</span></p>
   <div class="laurel">
     <span class="line left"></span>
@@ -555,12 +724,14 @@
   <div class="subtabs" id="subtabs"></div>
 </div>
 
-<div class="filters-wrap">
+<div class="filters-wrap" id="filters-wrap">
   <div class="filters-label">Filter by Genre <button id="clear-filters" class="clear">Clear All</button></div>
   <div class="filter-chips" id="filter-chips"></div>
 </div>
 
-<main id="main"></main>
+<main id="main">
+  <section id="saved-view" class="list saved-view"></section>
+</main>
 
 <div class="modal-wrap" id="modal">
   <div class="modal">
@@ -760,9 +931,9 @@ const DATA = {
 
 // ─── TABS (4 main; each may pull in a watchlist subsection) ───────────────
 const TABS = [
-  { key: 'books',       label: 'Books',        sections: ['bookSeries', 'booksToRead'] },
-  { key: 'tv',          label: 'TV Series',    sections: ['tvSeries',  'tvToWatch'] },
   { key: 'movies',      label: 'Movies',       sections: ['movies',    'moviesToWatch'] },
+  { key: 'books',       label: 'Books',        sections: ['bookSeries', 'booksToRead'] },
+  { key: 'tv',          label: 'TV Shows',     sections: ['tvSeries',  'tvToWatch'] },
   { key: 'movieSeries', label: 'Movie Series', sections: ['movieSeries'] },
 ];
 
@@ -845,6 +1016,36 @@ const SEARCH_OVERRIDES = {
   'Seven': 'Se7en',
   'Lioness': 'Special Ops Lioness',
 };
+
+// ─── SAVED ITEMS (localStorage-backed personal list, split by tab) ────────
+const SAVED_KEY = 'saved:v1';
+// id format: `${tabKey}::${section}::${title}` so duplicates across sections (Percy Jackson etc.) stay distinct
+function makeSavedId(tabKey, sectionKey, title) { return tabKey + '::' + sectionKey + '::' + title; }
+
+function loadSaved() {
+  try {
+    const raw = localStorage.getItem(SAVED_KEY);
+    if (!raw) return { movies: [], books: [], tv: [], movieSeries: [] };
+    const parsed = JSON.parse(raw);
+    return { movies: [], books: [], tv: [], movieSeries: [], ...parsed };
+  } catch(e) { return { movies: [], books: [], tv: [], movieSeries: [] }; }
+}
+function saveSaved(state) {
+  try { localStorage.setItem(SAVED_KEY, JSON.stringify(state)); } catch(e){}
+}
+let SAVED = loadSaved();
+
+function isSaved(tabKey, id) { return (SAVED[tabKey] || []).includes(id); }
+function toggleSaved(tabKey, id) {
+  const list = SAVED[tabKey] || (SAVED[tabKey] = []);
+  const i = list.indexOf(id);
+  if (i === -1) list.push(id); else list.splice(i, 1);
+  saveSaved(SAVED);
+  refreshSavedCount();
+  // If currently viewing the Saved tab, re-render it so removed items disappear
+  if (document.querySelector('.tab.active')?.dataset.key === 'saved') renderSavedView();
+}
+function savedCount() { return Object.values(SAVED).reduce((s, arr) => s + arr.length, 0); }
 
 // ─── COVER FETCH ──────────────────────────────────────────────────────────
 const CACHE_PREFIX = 'cover:v2:';
@@ -971,7 +1172,7 @@ function badgeClass(idx, isWatchlist) {
   return '';
 }
 
-function buildCardEl(item, idx, type, isWatchlist) {
+function buildCardEl(item, idx, type, isWatchlist, sectionKey) {
   const tier = tierClass(idx, isWatchlist);
   const badge = badgeClass(idx, isWatchlist);
   const card = document.createElement('div');
@@ -979,11 +1180,14 @@ function buildCardEl(item, idx, type, isWatchlist) {
   card.dataset.title = item.title.toLowerCase();
   card.dataset.tags = item.tags.map(t => t.toLowerCase()).join('|');
 
+  const tabKey = SECTION_TO_TAB[sectionKey];
+  const savedId = makeSavedId(tabKey, sectionKey, item.title);
+
   const inner = document.createElement('div');
   if (tier) inner.className = 'inner';
   const host = tier ? inner : card;
 
-  // Title block ABOVE the poster (badge lives inside it, top-left)
+  // Title block ABOVE the poster (badge in top-left, save button in top-right)
   const titleStrip = document.createElement('div');
   let stripClass = 'title-strip';
   if (item.title.length > 48) stripClass += ' very-long';
@@ -1000,6 +1204,17 @@ function buildCardEl(item, idx, type, isWatchlist) {
   titleText.textContent = item.title;
   titleStrip.appendChild(titleText);
 
+  const saveBtn = document.createElement('button');
+  saveBtn.className = 'save-btn' + (isSaved(tabKey, savedId) ? ' saved' : '');
+  saveBtn.title = 'Save to my list';
+  saveBtn.innerHTML = '★';
+  saveBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleSaved(tabKey, savedId);
+    saveBtn.classList.toggle('saved');
+  });
+  titleStrip.appendChild(saveBtn);
+
   host.appendChild(titleStrip);
 
   // Cover
@@ -1014,7 +1229,7 @@ function buildCardEl(item, idx, type, isWatchlist) {
   if (tier) card.appendChild(inner);
 
   card.addEventListener('click', () => openModal(item, type, card._coverUrl));
-  return { card, cover, placeholder, item };
+  return { card, cover, placeholder, item, savedId, tabKey, sectionKey };
 }
 
 function buildSection(key) {
@@ -1036,7 +1251,7 @@ function buildSection(key) {
   const grid = document.createElement('div');
   grid.className = 'grid';
   const builtCards = sec.items.map((item, idx) => {
-    const built = buildCardEl(item, idx, sec.type, !!sec.watchlist);
+    const built = buildCardEl(item, idx, sec.type, !!sec.watchlist, key);
     grid.appendChild(built.card);
     return built;
   });
@@ -1044,6 +1259,10 @@ function buildSection(key) {
 
   return { el, builtCards, key };
 }
+
+// reverse lookup: section key → its parent tab key
+const SECTION_TO_TAB = {};
+TABS.forEach(t => t.sections.forEach(sk => { SECTION_TO_TAB[sk] = t.key; }));
 
 function attachIntersection(cards) {
   const io = new IntersectionObserver((entries) => {
@@ -1195,6 +1414,18 @@ function buildTabs() {
     tab.addEventListener('click', () => activateTab(tabDef.key));
     tabsEl.appendChild(tab);
   });
+  // "My Saved" tab
+  const savedTab = document.createElement('button');
+  savedTab.className = 'tab saved-tab';
+  savedTab.dataset.key = 'saved';
+  savedTab.innerHTML = `★ My Saved<span class="count" id="saved-count">${savedCount()}</span>`;
+  savedTab.addEventListener('click', () => activateTab('saved'));
+  tabsEl.appendChild(savedTab);
+}
+
+function refreshSavedCount() {
+  const el = document.getElementById('saved-count');
+  if (el) el.textContent = savedCount();
 }
 
 function rebuildSubtabs(tabDef, activeSubIdx) {
@@ -1220,6 +1451,21 @@ function rebuildSubtabs(tabDef, activeSubIdx) {
 }
 
 function activateTab(key, subIdx) {
+  // ── Special: the "Saved" tab is not in TABS; render its own view ──
+  if (key === 'saved') {
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.key === 'saved'));
+    document.querySelectorAll('section.list').forEach(s => s.classList.remove('active'));
+    document.getElementById('saved-view').classList.add('active');
+    document.getElementById('subtabs-wrap').classList.add('hidden');
+    document.getElementById('filters-wrap').style.display = 'none';
+    renderSavedView();
+    window.scrollTo({ top: document.querySelector('.tabs-wrap').offsetTop - 20, behavior: 'smooth' });
+    history.replaceState(null, '', '#saved');
+    return;
+  }
+  document.getElementById('saved-view').classList.remove('active');
+  document.getElementById('filters-wrap').style.display = '';
+
   const tabDef = TABS.find(t => t.key === key);
   if (!tabDef) return;
   if (typeof subIdx !== 'number') subIdx = subviewPerTab[key] || 0;
@@ -1236,6 +1482,81 @@ function activateTab(key, subIdx) {
   applyZigzagAll();
   window.scrollTo({ top: document.querySelector('.tabs-wrap').offsetTop - 20, behavior: 'smooth' });
   history.replaceState(null, '', '#' + key + (subIdx ? '/watch' : ''));
+}
+
+// ─── SAVED VIEW ───────────────────────────────────────────────────────────
+const SAVED_GROUP_DEFS = [
+  { key: 'movies',      label: 'Movies' },
+  { key: 'books',       label: 'Books' },
+  { key: 'tv',          label: 'TV Shows' },
+  { key: 'movieSeries', label: 'Movie Series' },
+];
+
+function findItemByTitle(sectionKey, title) {
+  return DATA[sectionKey].items.find(it => it.title === title);
+}
+
+function renderSavedView() {
+  const root = document.getElementById('saved-view');
+  root.innerHTML = '';
+
+  const head = document.createElement('div');
+  head.className = 'section-head';
+  head.innerHTML = `
+    <div class="eyebrow">Your Personal List</div>
+    <h2>My Saved</h2>
+    <div class="divider"></div>
+  `;
+  root.appendChild(head);
+
+  if (savedCount() === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'saved-empty';
+    empty.innerHTML = `Nothing saved yet.<div class="hint">Tap the ★ on any card to add it to your personal list.</div>`;
+    root.appendChild(empty);
+    return;
+  }
+
+  SAVED_GROUP_DEFS.forEach(g => {
+    const group = document.createElement('div');
+    group.className = 'saved-group';
+    group.innerHTML = `
+      <div class="saved-group-title">${g.label}</div>
+      <div class="saved-group-divider"></div>
+    `;
+    const ids = SAVED[g.key] || [];
+    if (ids.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'empty-group';
+      empty.textContent = `— No ${g.label.toLowerCase()} saved yet —`;
+      group.appendChild(empty);
+    } else {
+      const grid = document.createElement('div');
+      grid.className = 'grid';
+      ids.forEach((id, idx) => {
+        const [/*tabKey*/, sectionKey, ...titleParts] = id.split('::');
+        const title = titleParts.join('::');
+        const item = findItemByTitle(sectionKey, title);
+        if (!item) return;
+        const built = buildCardEl(item, idx, DATA[sectionKey].type, true, sectionKey);
+        // hydrate cover from cache (or fetch)
+        lookupCover(DATA[sectionKey].type, item.title).then(url => {
+          if (!url) return;
+          built.card._coverUrl = url;
+          const img = new Image();
+          img.alt = item.title;
+          img.onload = () => { built.cover.innerHTML = ''; built.cover.appendChild(img); };
+          img.src = url;
+        });
+        built.card.classList.add('in-view');
+        grid.appendChild(built.card);
+      });
+      group.appendChild(grid);
+      // Apply zigzag layout to this saved-group's grid
+      setTimeout(() => applyZigzag(grid), 0);
+    }
+    root.appendChild(group);
+  });
 }
 
 // ─── MODAL ────────────────────────────────────────────────────────────────
@@ -1291,9 +1612,19 @@ function closeModal() { modal.classList.remove('open'); }
   applyZigzagAll();
   sections.forEach(loadCovers);
 
-  const hash = (location.hash || '').replace('#','');
-  const validHash = TABS.find(t => t.key === hash);
-  activateTab(validHash ? validHash.key : 'books');
+  // Curtain fade on scroll
+  const curtain = document.getElementById('curtain-bg');
+  const onScroll = () => {
+    const y = window.scrollY;
+    const op = Math.max(0, 1 - y / 480);
+    curtain.style.opacity = op;
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const hash = (location.hash || '').replace('#','').split('/')[0];
+  const validHash = hash === 'saved' ? 'saved' : (TABS.find(t => t.key === hash)?.key);
+  activateTab(validHash || 'movies');
 })();
 </script>
 </body>
