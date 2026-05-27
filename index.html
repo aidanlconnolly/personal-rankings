@@ -1088,7 +1088,7 @@ const SEARCH_OVERRIDES = {
   'movie:Percy Jackson': 'Percy Jackson Sea of Monsters',
   'tv:The Gentlemen': 'The Gentlemen',
   'tv:Percy Jackson': 'Percy Jackson and the Olympians',
-  'Happy Gilmore': 'Happy Gilmore 1996',
+  'movie:Happy Gilmore': 'Happy Gilmore (1996 film)',
   'Wolf of Wall street': 'The Wolf of Wall Street (2013 film)',
   'Gladiator': 'Gladiator (2000 film)',
   'Gladiator 2': 'Gladiator II',
@@ -1745,7 +1745,7 @@ function closeModal() { modal.classList.remove('open'); }
 // ─── BOOT ─────────────────────────────────────────────────────────────────
 (function init() {
   // Force re-fetch for entries whose cached cover was wrong / outdated
-  ['movie:Wolf of Wall street', 'movie:Gladiator', 'movie:Gladiator 2', 'movie:James bond', 'movie:Dune series'].forEach(k => {
+  ['movie:Wolf of Wall street', 'movie:Gladiator', 'movie:Gladiator 2', 'movie:James bond', 'movie:Dune series', 'movie:Happy Gilmore'].forEach(k => {
     try { localStorage.removeItem(CACHE_PREFIX + k); } catch(e){}
   });
 
